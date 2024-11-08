@@ -90,22 +90,11 @@ class EnhancedDatasetLoader:
         self.logger = logging.getLogger(__name__)
 
     def _load_single_source(self, source: str, format_type: str = None, **kwargs) -> pd.DataFrame:
-        """
-        Determine and load data source based on file extension or specified format.
-        
-        Args:
-            source: Path or source of the data
-            format_type: Explicitly specified format
-            **kwargs: Additional loading arguments
-        
-        Returns:
-            Loaded DataFrame
-        """
         try:
             # If format_type is explicitly provided, use it
             if format_type and format_type.lower() in self.supported_formats:
                 return self.supported_formats[format_type.lower()](source, **kwargs)
-            
+
             # Handle URL directly
             if source.startswith(('http://', 'https://')):
                 return self._load_url(source, **kwargs)
@@ -124,19 +113,23 @@ class EnhancedDatasetLoader:
                     bucket, key = path.split('/', 1)
                     return self._load_s3(bucket, key, **kwargs)
 
+            # Check if the source is a Kaggle dataset directly (without prefix)
+            if '/' in source:  # This implies it could be a Kaggle dataset
+                return self._load_kaggle(source, **kwargs)
+
             # Ensure source is a string path
             source = str(source)
-            
+
             # Normalize path to handle different OS path separators
             source = os.path.normpath(source)
-            
+
             # Infer format from file extension
             file_ext = os.path.splitext(source)[1].lower().lstrip('.')
             if file_ext in self.supported_formats:
                 return self.supported_formats[file_ext](source, **kwargs)
 
             raise ValueError("Unsupported format or source type.")
-        
+
         except Exception as e:
             self.logger.error(f"Error loading source {source}: {str(e)}")
             raise
@@ -174,14 +167,48 @@ class EnhancedDatasetLoader:
 
     def _load_kaggle(self, dataset_name: str, **kwargs) -> pd.DataFrame:
         try:
+            # Validate dataset name format
+            if '/' not in dataset_name:
+                raise ValueError(f"Invalid Kaggle dataset format. Use 'username/dataset-name'. Received: {dataset_name}")
+            
             with tempfile.TemporaryDirectory() as tmp_dir:
-                self.kaggle_api.dataset_download_files(dataset_name, path=tmp_dir, unzip=True)
+                try:
+                    # Download dataset
+                    self.kaggle_api.dataset_download_files(dataset_name, path=tmp_dir, unzip=True)
+                except Exception as download_error:
+                    self.logger.error(f"Failed to download Kaggle dataset {dataset_name}: {download_error}")
+                    raise
+                
+                # List files in the temporary directory
                 files = os.listdir(tmp_dir)
-                data_file = next(f for f in files if f.endswith(('.csv', '.xlsx', '.json')))
+                
+                # Filter for data files
+                data_files = [f for f in files if f.lower().endswith(('.csv', '.xlsx', '.json', '.txt'))]
+                
+                # Handle no files scenario
+                if not data_files:
+                    raise FileNotFoundError(f"No valid data files found in Kaggle dataset {dataset_name}")
+                
+                # Prefer CSV if multiple files exist
+                preferred_files = [f for f in data_files if f.lower().endswith('.csv')]
+                data_file = preferred_files[0] if preferred_files else data_files[0]
+                
+                # Construct full file path
                 file_path = os.path.join(tmp_dir, data_file)
-                return self._load_single_source(file_path, **kwargs)
+                
+                # Log the file being loaded
+                self.logger.info(f"Loading file: {data_file} from Kaggle dataset {dataset_name}")
+                
+                # Load the file
+                try:
+                    return self._load_single_source(file_path, **kwargs)
+                except Exception as load_error:
+                    self.logger.error(f"Error loading file {data_file}: {load_error}")
+                    raise
+        
         except Exception as e:
-            self.logger.error(f"Error loading Kaggle dataset: {str(e)}")
+            # Comprehensive error logging
+            self.logger.error(f"Kaggle dataset loading failed: {str(e)}")
             raise
 
     def _load_github(self, repo_path: str, file_path: str, **kwargs) -> pd.DataFrame:
@@ -336,7 +363,8 @@ class EnhancedDatasetLoader:
 if __name__ == "__main__":
     try:
         loader = EnhancedDatasetLoader(verbose=True)
-        loader.load_dataset("https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv", "titanic_data")
+        loader.load_dataset("heptapod/titanic", "titanic_data")  # Ensure this is the correct dataset name
+
         titanic_df = loader.get_dataset("titanic_data")
         print(titanic_df.head())
         print("Available datasets:", loader.list_datasets())
