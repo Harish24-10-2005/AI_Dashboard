@@ -20,13 +20,15 @@ import tempfile
 import yaml
 from bs4 import BeautifulSoup
 import gdown 
-
+import os
+from dotenv import load_dotenv
 from kaggle.api.kaggle_api_extended import KaggleApi
 from github import Github
 import boto3
 
 class EnhancedDatasetLoader:
     def __init__(self, verbose: bool = True):
+        load_dotenv()
         self.verbose = verbose
         self._setup_logging()
         self.supported_formats = {
@@ -50,29 +52,48 @@ class EnhancedDatasetLoader:
             'web_table': self._load_web_table,
             's3': self._load_s3
         }
-        self.dataframes = {}  # Dictionary to store named DataFrames
+        self.dataframes = {} 
         self._init_external_apis()
 
     def _init_external_apis(self):
-        """Initialize connections to external data sources."""
         try:
-            # Kaggle API initialization
             self.kaggle_api = KaggleApi()
             self.kaggle_api.authenticate()
+            print("✅ Kaggle API Initialized Successfully")
             
-            # GitHub API initialization (requires GitHub token)
-            github_token = os.environ.get('GITHUB_TOKEN')
+        except Exception as e:
+            print(f"❌ Kaggle API Initialization Failed: {e}")
+            self.kaggle_api = None
+
+        github_token = os.getenv('GITHUB_TOKEN')
+        try:
             if github_token:
                 self.github_api = Github(github_token)
-            
-            # AWS S3 initialization (if needed)
-            try:
-                self.s3_client = boto3.client('s3')
-            except:
-                self.logger.warning("AWS S3 client initialization failed")
-                
+                self.github_api.get_user()
+                print("✅ GitHub API Initialized Successfully")
+            else:
+                print("❌ No GitHub Token Found")
+                self.github_api = None
         except Exception as e:
-            self.logger.warning(f"Some API initializations failed: {str(e)}")
+            print(f"❌ GitHub API Initialization Failed: {e}")
+            self.github_api = None
+
+        try:
+            aws_access_key = os.getenv('AWS_ACCESS_KEY')
+            aws_secret_key = os.getenv('AWS_SECRET_KEY')
+            if aws_access_key and aws_secret_key:
+                self.s3_client = boto3.client(
+                    's3', 
+                    aws_access_key_id=aws_access_key,
+                    aws_secret_access_key=aws_secret_key
+                )
+                print("✅ AWS S3 Client Initialized Successfully")
+            else:
+                print("❌ AWS Credentials Not Found")
+                self.s3_client = None
+        except Exception as e:
+            print(f"❌ AWS S3 Initialization Failed: {e}")
+            self.s3_client = None
 
     def _load_kaggle(self, dataset_name: str, **kwargs) -> pd.DataFrame:
         """Load dataset from Kaggle."""
