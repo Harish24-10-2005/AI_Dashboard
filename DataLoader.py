@@ -4,8 +4,10 @@ import requests
 import logging
 import tempfile
 import yaml
-import sqlite3  # Import for SQL functionality
-import gdown  # Import for Google Drive functionality
+import sqlite3 
+import gzip
+import mysql.connector
+import gdown 
 from dotenv import load_dotenv
 from kaggle.api.kaggle_api_extended import KaggleApi
 from github import Github
@@ -15,26 +17,39 @@ from io import StringIO, BytesIO
 import pickle
 import h5py
 import xml.etree.ElementTree as ET
-import time  # Import time for timing dataset loading
-
+import time 
+from sqlalchemy import create_engine  # Import create_engine from SQLAlchemy
+from pymongo import MongoClient
 class EnhancedDatasetLoader:
     def __init__(self, verbose: bool = True):
         load_dotenv()
         self.verbose = verbose
         self._setup_logging()
         self.supported_formats = {
-            'csv': self._load_csv,
-            'excel': self._load_excel,
-            'json': self._load_json,
+            'csv': self._load_csv,                                                              #success
+            'ods': self._load_excel,                                                            #success
+            'xlsx':self._load_excel,                                                            #success
+            'xlrd':self._load_excel,                                                            #success
+            'odfpy':self._load_excel,                                                           #success
+            'xls':self._load_excel,                                                             #success
+            'xlsm':self._load_excel,                                                            #success
+            'xlsb':self._load_excel,                                                            #success
+            'json': self._load_json,                                                            #success
             'sql': self._load_sql,
-            'pickle': self._load_pickle,
+            'mysql': self._load_mysql,
+            'postgresql': self._load_postgresql,
+            'mongodb': self._load_mongodb,
+            'pkl': self._load_pickle,                                                           #success
+            'pklz': self._load_pickle,                                                          #success
+            'bin': self._load_pickle,                                                           #success
+            'data': self._load_pickle,
             'parquet': self._load_parquet,
             'hdf5': self._load_hdf5,
             'xml': self._load_xml,
             'txt': self._load_txt,
             'zip': self._load_zip,
-            'kaggle': self._load_kaggle,
-            'github': self._load_github,
+            'kaggle': self._load_kaggle,                                                        #success
+            'github': self._load_github,                                                        #success
             'gdrive': self._load_google_drive,
             'url': self._load_url,
             'web_table': self._load_web_table,
@@ -91,15 +106,12 @@ class EnhancedDatasetLoader:
 
     def _load_single_source(self, source: str, format_type: str = None, **kwargs) -> pd.DataFrame:
         try:
-            # If format_type is explicitly provided, use it
             if format_type and format_type.lower() in self.supported_formats:
                 return self.supported_formats[format_type.lower()](source, **kwargs)
-
-            # Handle URL directly
+            
             if source.startswith(('http://', 'https://')):
                 return self._load_url(source, **kwargs)
 
-            # Handle special source types
             if source.lower().startswith(('kaggle:', 'github:', 'gdrive:', 's3:')):
                 prefix, path = source.split(':', 1)
                 if prefix.lower() == 'kaggle':
@@ -134,6 +146,27 @@ class EnhancedDatasetLoader:
             self.logger.error(f"Error loading source {source}: {str(e)}")
             raise
 
+    def _extract_kaggle_dataset_name(self, url: str) -> str:
+        """
+        Extract the dataset name from a Kaggle dataset URL.
+        
+        Args:
+            url: Full URL of the Kaggle dataset.
+        
+        Returns:
+            The dataset name in 'username/dataset-name' format.
+        """
+        try:
+            # Split the URL to get the dataset path
+            parts = url.split('/')
+            if len(parts) >= 5:
+                return f"{parts[-2]}/{parts[-1]}"
+            else:
+                raise ValueError("Invalid Kaggle URL format.")
+        except Exception as e:
+            self.logger.error(f"Error extracting dataset name from URL: {str(e)}")
+            raise
+
     def _load_csv(self, path: str, **kwargs) -> pd.DataFrame:
         try:
             return pd.read_csv(path, **kwargs)
@@ -157,13 +190,83 @@ class EnhancedDatasetLoader:
 
     def _load_sql(self, query: str, **kwargs) -> pd.DataFrame:
         try:
-            conn = sqlite3.connect(kwargs.get('database'))
-            return pd.read_sql_query(query, conn)
+            # Get database connection parameters from kwargs
+            database = kwargs.get('database')
+            user = kwargs.get('user')
+            password = kwargs.get('password')
+            host = kwargs.get('host', 'localhost')
+            port = kwargs.get('port', '5432')  # Default PostgreSQL port
+
+            # Create a connection string
+            connection_string = f"sqlite:///{database}" if database.endswith('.db') else f"postgresql://{user}:{password}@{host}:{port}/{database}"
+
+            # Connect to the database
+            engine = create_engine(connection_string)
+            return pd.read_sql_query(query, engine)
         except Exception as e:
             self.logger.error(f"Error loading SQL data: {str(e)}")
             raise
-        finally:
-            conn.close()
+
+    def _load_mysql(self, query: str, **kwargs) -> pd.DataFrame:
+        try:
+            # Get MySQL connection parameters from kwargs
+            user = kwargs.get('user')
+            password = kwargs.get('password')
+            host = kwargs.get('host', 'localhost')
+            database = kwargs.get('database')
+
+            mydb = mysql.connector.connect(
+                host = host,
+                user = user,
+                passwd = password,
+                database = database
+            )
+
+            mycursor = mydb.cursor()
+
+            return pd.read_sql_query(query, mycursor)
+        except Exception as e:
+            self.logger.error(f"Error loading MySQL data: {str(e)}")
+            raise
+
+    def _load_postgresql(self, query: str, **kwargs) -> pd.DataFrame:
+        try:
+            # Get PostgreSQL connection parameters from kwargs
+            user = kwargs.get('user')
+            password = kwargs.get('password')
+            host = kwargs.get('host', 'localhost')
+            database = kwargs.get('database')
+            port = kwargs.get('port', '5432')  # Default PostgreSQL port
+
+            # Create a connection string
+            connection_string = f"postgresql://{user}:{password}@{host}:{port}/{database}"
+
+            # Connect to the PostgreSQL database
+            engine = create_engine(connection_string)
+            return pd.read_sql_query(query, engine)
+        except Exception as e:
+            self.logger.error(f"Error loading PostgreSQL data: {str(e)}")
+            raise
+
+    def _load_mongodb(self, query: dict, **kwargs) -> pd.DataFrame:
+        try:
+            # Get MongoDB connection parameters from kwargs
+            uri = kwargs.get('uri', 'mongodb://localhost:27017/')
+            database_name = kwargs.get('database')
+            collection_name = kwargs.get('collection')
+
+            # Connect to the MongoDB database
+            client = MongoClient(uri)
+            db = client[database_name]
+            collection = db[collection_name]
+
+            # Fetch data based on the query
+            data = list(collection.find(query))
+            return pd.DataFrame(data)
+        except Exception as e:
+            self.logger.error(f"Error loading MongoDB data: {str(e)}")
+            raise
+
 
     def _load_kaggle(self, dataset_name: str, **kwargs) -> pd.DataFrame:
         try:
@@ -286,6 +389,11 @@ class EnhancedDatasetLoader:
 
     def _load_pickle(self, path: str, **kwargs) -> pd.DataFrame:
         try:
+            format_type = kwargs.get('format_type')
+            if format_type == 'pklz':
+                with gzip.open(path, 'rb') as f:
+                    data = pickle.load(f)
+                return data
             with open(path, 'rb') as f:
                 return pickle.load(f)
         except Exception as e:
@@ -363,7 +471,7 @@ class EnhancedDatasetLoader:
 if __name__ == "__main__":
     try:
         loader = EnhancedDatasetLoader(verbose=True)
-        loader.load_dataset("heptapod/titanic", "titanic_data")  # Ensure this is the correct dataset name
+        loader.load_dataset("test_data\iris.json", "titanic_data") 
 
         titanic_df = loader.get_dataset("titanic_data")
         print(titanic_df.head())

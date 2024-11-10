@@ -4,3 +4,7 @@ Lib/
 Scripts/
 pyenv
 pyvenv.cfg
+test.ipynb
+share
+_pycache_
+.env
