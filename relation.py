@@ -105,7 +105,6 @@ class SmartDatasetAnalyzer:
             with torch.no_grad():
                 outputs = self.model(**inputs)
             
-            # Use mean pooling
             embeddings = outputs.last_hidden_state.mean(dim=1)
             return embeddings.cpu().numpy()
             
@@ -122,30 +121,25 @@ class SmartDatasetAnalyzer:
         try:
             similarities = []
             
-            # Basic statistical comparisons
             stats1 = col1.describe()
             stats2 = col2.describe()
             
             if pd.api.types.is_numeric_dtype(col1) and pd.api.types.is_numeric_dtype(col2):
-                # Compare distributions
                 hist1, _ = np.histogram(col1, bins=20, density=True)
                 hist2, _ = np.histogram(col2, bins=20, density=True)
                 hist_sim = 1 - np.mean(np.abs(hist1 - hist2))
                 similarities.append(hist_sim)
                 
-                # Compare ranges
                 range_sim = 1 - abs(
                     (col1.max() - col1.min()) - (col2.max() - col2.min())
                 ) / max(col1.max() - col1.min(), col2.max() - col2.min())
                 similarities.append(range_sim)
                 
-            # Compare null patterns
             null_sim = 1 - abs(
                 col1.isnull().mean() - col2.isnull().mean()
             )
             similarities.append(null_sim)
             
-            # Compare unique value ratios
             unique_sim = 1 - abs(
                 (col1.nunique() / len(col1)) - (col2.nunique() / len(col2))
             )
@@ -173,7 +167,6 @@ class SmartDatasetAnalyzer:
             if emb1 is None or emb2 is None:
                 return 0.0
             
-            # Compute cosine similarity
             similarity = np.dot(emb1[0], emb2[0]) / (
                 np.linalg.norm(emb1[0]) * np.linalg.norm(emb2[0])
             )
@@ -197,7 +190,6 @@ class SmartDatasetAnalyzer:
         }
         
         try:
-            # Check for exact match
             if col1.equals(col2):
                 relationship.update({
                     'type': 'exact_match',
@@ -206,14 +198,12 @@ class SmartDatasetAnalyzer:
                 })
                 return relationship
             
-            # Check for subset relationship
             unique1 = set(col1.dropna())
             unique2 = set(col2.dropna())
             
             overlap = len(unique1 & unique2)
             
             if overlap > 0:
-                # Determine cardinality
                 if len(unique1) == len(unique2) and overlap == len(unique1):
                     cardinality = '1:1'
                 elif len(unique1) > len(unique2):
@@ -478,7 +468,6 @@ class SmartDatasetAnalyzer:
                 "merged_results": []
             }
             
-            # Original datasets summary
             for name, df in datasets.items():
                 dataset_info = {
                     "name": name,
@@ -488,7 +477,6 @@ class SmartDatasetAnalyzer:
                 }
                 report["original_datasets"].append(dataset_info)
             
-            # Detected relationships
             for key, rels in relationships.items():
                 for rel in rels:
                     relationship_info = {
@@ -538,9 +526,7 @@ def analyze_and_merge_datasets(
         
         report = analyzer.generate_report(datasets, relationships, results)
         
-        print(json.dumps(report, indent=2)) 
-        
-        return results
+        return results,report
         
     except Exception as e:
         print(f"Error in analysis: {str(e)}")
@@ -555,7 +541,7 @@ if __name__ == "__main__":
     courses = pd.DataFrame({
         'course_id': [101, 102, 103, 104],
         'course_name': ['Math', 'Science', 'History', 'Art'],
-        'student_id': [1, 2, 3, 4]  # Foreign key linking to student_id in students DataFrame
+        'student_id': [1, 2, 3, 4]  
     })
 
     print("Students DataFrame:")
@@ -563,14 +549,13 @@ if __name__ == "__main__":
     print("\nCourses DataFrame:")
     print(courses)
 
-# Merge the two DataFrames based
 
     datasets = {
         'students': students,
         'courses': courses
     }
 
-    results = analyze_and_merge_datasets(
+    results,report = analyze_and_merge_datasets(
         datasets,
         output_dir='analysis_results',
         use_llm=True,

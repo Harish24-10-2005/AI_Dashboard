@@ -18,7 +18,7 @@ import pickle
 import h5py
 import xml.etree.ElementTree as ET
 import time 
-from sqlalchemy import create_engine  # Import create_engine from SQLAlchemy
+from sqlalchemy import create_engine  
 from pymongo import MongoClient
 class EnhancedDatasetLoader:
     def __init__(self, verbose: bool = True):
@@ -125,17 +125,13 @@ class EnhancedDatasetLoader:
                     bucket, key = path.split('/', 1)
                     return self._load_s3(bucket, key, **kwargs)
 
-            # Check if the source is a Kaggle dataset directly (without prefix)
-            if '/' in source:  # This implies it could be a Kaggle dataset
+            if '/' in source: 
                 return self._load_kaggle(source, **kwargs)
 
-            # Ensure source is a string path
             source = str(source)
 
-            # Normalize path to handle different OS path separators
             source = os.path.normpath(source)
 
-            # Infer format from file extension
             file_ext = os.path.splitext(source)[1].lower().lstrip('.')
             if file_ext in self.supported_formats:
                 return self.supported_formats[file_ext](source, **kwargs)
@@ -157,7 +153,6 @@ class EnhancedDatasetLoader:
             The dataset name in 'username/dataset-name' format.
         """
         try:
-            # Split the URL to get the dataset path
             parts = url.split('/')
             if len(parts) >= 5:
                 return f"{parts[-2]}/{parts[-1]}"
@@ -190,17 +185,14 @@ class EnhancedDatasetLoader:
 
     def _load_sql(self, query: str, **kwargs) -> pd.DataFrame:
         try:
-            # Get database connection parameters from kwargs
             database = kwargs.get('database')
             user = kwargs.get('user')
             password = kwargs.get('password')
             host = kwargs.get('host', 'localhost')
             port = kwargs.get('port', '5432')  # Default PostgreSQL port
 
-            # Create a connection string
             connection_string = f"sqlite:///{database}" if database.endswith('.db') else f"postgresql://{user}:{password}@{host}:{port}/{database}"
 
-            # Connect to the database
             engine = create_engine(connection_string)
             return pd.read_sql_query(query, engine)
         except Exception as e:
@@ -209,7 +201,6 @@ class EnhancedDatasetLoader:
 
     def _load_mysql(self, query: str, **kwargs) -> pd.DataFrame:
         try:
-            # Get MySQL connection parameters from kwargs
             user = kwargs.get('user')
             password = kwargs.get('password')
             host = kwargs.get('host', 'localhost')
@@ -231,17 +222,14 @@ class EnhancedDatasetLoader:
 
     def _load_postgresql(self, query: str, **kwargs) -> pd.DataFrame:
         try:
-            # Get PostgreSQL connection parameters from kwargs
             user = kwargs.get('user')
             password = kwargs.get('password')
             host = kwargs.get('host', 'localhost')
             database = kwargs.get('database')
-            port = kwargs.get('port', '5432')  # Default PostgreSQL port
+            port = kwargs.get('port', '5432')  
 
-            # Create a connection string
             connection_string = f"postgresql://{user}:{password}@{host}:{port}/{database}"
 
-            # Connect to the PostgreSQL database
             engine = create_engine(connection_string)
             return pd.read_sql_query(query, engine)
         except Exception as e:
@@ -250,17 +238,14 @@ class EnhancedDatasetLoader:
 
     def _load_mongodb(self, query: dict, **kwargs) -> pd.DataFrame:
         try:
-            # Get MongoDB connection parameters from kwargs
             uri = kwargs.get('uri', 'mongodb://localhost:27017/')
             database_name = kwargs.get('database')
             collection_name = kwargs.get('collection')
 
-            # Connect to the MongoDB database
             client = MongoClient(uri)
             db = client[database_name]
             collection = db[collection_name]
 
-            # Fetch data based on the query
             data = list(collection.find(query))
             return pd.DataFrame(data)
         except Exception as e:
@@ -276,33 +261,26 @@ class EnhancedDatasetLoader:
             
             with tempfile.TemporaryDirectory() as tmp_dir:
                 try:
-                    # Download dataset
                     self.kaggle_api.dataset_download_files(dataset_name, path=tmp_dir, unzip=True)
                 except Exception as download_error:
                     self.logger.error(f"Failed to download Kaggle dataset {dataset_name}: {download_error}")
                     raise
                 
-                # List files in the temporary directory
                 files = os.listdir(tmp_dir)
                 
                 # Filter for data files
                 data_files = [f for f in files if f.lower().endswith(('.csv', '.xlsx', '.json', '.txt'))]
                 
-                # Handle no files scenario
                 if not data_files:
                     raise FileNotFoundError(f"No valid data files found in Kaggle dataset {dataset_name}")
                 
-                # Prefer CSV if multiple files exist
                 preferred_files = [f for f in data_files if f.lower().endswith('.csv')]
                 data_file = preferred_files[0] if preferred_files else data_files[0]
                 
-                # Construct full file path
                 file_path = os.path.join(tmp_dir, data_file)
                 
-                # Log the file being loaded
                 self.logger.info(f"Loading file: {data_file} from Kaggle dataset {dataset_name}")
                 
-                # Load the file
                 try:
                     return self._load_single_source(file_path, **kwargs)
                 except Exception as load_error:
@@ -345,8 +323,13 @@ class EnhancedDatasetLoader:
 
     def _load_url(self, url: str, **kwargs) -> pd.DataFrame:
         try:
+            if 'github.com' in url and '/blob/' in url:
+                url = url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/')
+            
+            self.logger.info(f"Attempting to load from URL: {url}")
             response = requests.get(url)
             response.raise_for_status()
+            
             if url.endswith('.csv'):
                 return pd.read_csv(StringIO(response.text), **kwargs)
             elif url.endswith('.json'):
@@ -471,7 +454,7 @@ class EnhancedDatasetLoader:
 if __name__ == "__main__":
     try:
         loader = EnhancedDatasetLoader(verbose=True)
-        loader.load_dataset("test_data\iris.json", "titanic_data") 
+        loader.load_dataset("test_data\dataframe.pkl", "titanic_data") 
 
         titanic_df = loader.get_dataset("titanic_data")
         print(titanic_df.head())
