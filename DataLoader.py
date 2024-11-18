@@ -454,7 +454,8 @@ class EnhancedDatasetLoader:
 if __name__ == "__main__":
     try:
         loader = EnhancedDatasetLoader(verbose=True)
-        loader.load_dataset("test_data\dataframe.pkl", "titanic_data") 
+        data_link = input("Enter the data link/path of dataset: ")
+        loader.load_dataset(data_link, "titanic_data") 
 
         titanic_df = loader.get_dataset("titanic_data")
         print(titanic_df.head())

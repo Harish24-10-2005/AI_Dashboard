@@ -5,12 +5,12 @@ from dotenv import load_dotenv
 from DataLoader import EnhancedDatasetLoader
 from relation import SmartDatasetAnalyzer
 import json
-
+from Ai_decision import AIDecisionMaker
 load_dotenv()
 
 loader = EnhancedDatasetLoader(verbose=True)
 Relation_Analyzer = SmartDatasetAnalyzer()
-
+LLM = AIDecisionMaker(cohere_api_key)
 dataFrame = {}
 datasets = {
     "employee_projects": "relation_data\employee_projects.json",
@@ -35,7 +35,7 @@ if len(datasets) > 1:
         cache_dir='analysis_cache'
     )
 
-    # print(json.dumps(report, indent=2)) 
+    print(json.dumps(report, indent=2)) 
     if results:
         print("\nAnalysis completed successfully!")
         print("\nFinal Datasets:")
@@ -44,6 +44,7 @@ if len(datasets) > 1:
             print(df.head())
             print(f"Shape: {df.shape}")
             print("Columns:", df.columns.tolist())
+    LLM.summary_of_data(results,report)
 
 else:
     for key,value in datasets.items():
@@ -56,7 +57,7 @@ else:
 
 # df = loader.get_dataset("titanic_data")
 
-print(df.head())
+# print(df.head())
 
 
 
