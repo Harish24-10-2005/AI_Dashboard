@@ -22,7 +22,6 @@ from sqlalchemy import create_engine
 from pymongo import MongoClient
 class EnhancedDatasetLoader:
     def __init__(self, verbose: bool = True):
-        load_dotenv()
         self.verbose = verbose
         self._setup_logging()
         self.supported_formats = {
@@ -464,3 +463,4 @@ if __name__ == "__main__":
         print(f"An error occurred: {e}")
         import traceback
         traceback.print_exc()
+

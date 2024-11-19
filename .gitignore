@@ -8,3 +8,4 @@ test.ipynb
 share
 _pycache_
 .env
+analysis_results/

@@ -8,21 +8,21 @@ import cohere
 from scipy import stats
 import category_encoders as ce
 from pandas.api.types import is_numeric_dtype, is_string_dtype, is_categorical_dtype
-from transformers import AutoTokenizer, AutoModelForCausalLM
-
+from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
+import os
 class AIDecisionMaker:
     def __init__(self, cohere_api_key: str):
-        self.cohere_client = cohere.Client(cohere_api_key)
-        self.tokenizer = AutoTokenizer.from_pretrained("bigcode/starcoder")
-        self.model = AutoModelForCausalLM.from_pretrained("bigcode/starcoder")
-        
+        import os
+        api_key = os.getenv('COHERE_API_KEY')
+        self.co = cohere.ClientV2(api_key)
+
     def analyze_error(self, error_message: str, code_context: str) -> Dict[str, str]:
         """Analyze errors using CodeBERT and Cohere for intelligent error resolution."""
         try:
             # Get CodeBERT embeddings for error context
-            inputs = self.codebert_tokenizer(code_context, return_tensors="pt", truncation=True, max_length=512)
+            inputs = self.tokenizer(code_context, return_tensors="pt", truncation=True, max_length=512)
             with torch.no_grad():
-                code_embeddings = self.codebert_model(**inputs).last_hidden_state.mean(dim=1)
+                code_embeddings = self.model(**inputs).last_hidden_state.mean(dim=1)
             
             # Generate error analysis using Cohere
             prompt = f"""
@@ -121,8 +121,7 @@ class AIDecisionMaker:
         return profile
 
     def summary_of_data(self, data: pd.DataFrame,dataset_analysis_report):
-        input_text = """
-        <fim_prefix>
+        input_text = f"""
         You are an expert AI data scientist and strategist specializing in advanced data analysis, relational database exploration, and generating innovative data science project ideas. Your task is to deeply analyze a dataset summary, understand relationships between datasets, and suggest actionable insights, innovative data science applications, and potential improvements.
 
         Below is the dataset analysis report:
@@ -130,41 +129,57 @@ class AIDecisionMaker:
         {json.dumps(dataset_analysis_report, indent=4)}
 
         Summary:
+        - Provide a concise overview of the datasets, their structure, and the detected relationships.
+        - Highlight the strengths or unique characteristics of the data.
 
-        Provide a concise overview of the datasets, their structure, and the detected relationships.
-        Highlight the strengths or unique characteristics of the data.
         Insights and Opportunities:
+        - Suggest key patterns, trends, or insights that could be extracted from the data.
+        - Propose hypotheses or questions the data could answer.
 
-        Suggest key patterns, trends, or insights that could be extracted from the data.
-        Propose hypotheses or questions the data could answer.
         Data Science Applications:
+        - Recommend innovative and impactful data science projects based on the datasets and their relationships.
+        - For each suggestion, briefly explain its value and potential real-world applications.
 
-        Recommend innovative and impactful data science projects based on the datasets and their relationships.
-        For each suggestion, briefly explain its value and potential real-world applications.
         Enhancements:
+        - Identify any missing data, potential biases, or limitations in the datasets.
+        - Suggest additional data or relationships that could improve the quality of analysis.
 
-        Identify any missing data, potential biases, or limitations in the datasets.
-        Suggest additional data or relationships that could improve the quality of analysis.
         Technical Plan:
+        - Propose specific machine learning models, algorithms, or techniques that can be used for the suggested projects.
+        - Include tools or frameworks suitable for implementing the ideas.
 
-        Propose specific machine learning models, algorithms, or techniques that can be used for the suggested projects.
-        Include tools or frameworks suitable for implementing the ideas.
+        Phase 1: Preparation (Before Building the Dashboard)
+        Step 1: Define Dashboard Objectives
+        - Activity: Clearly outline what insights the dashboard should provide.
+        - Output: Written objectives (e.g., "Track employee productivity", "Analyze project allocation by department").
 
-        <fim_suffix>
-        Provide the analysis below:
-        <fim_middle>
+        Step 2: Identify Target Audience
+        - Activity: Determine who will use the dashboard.
+        - Output: List of user roles (e.g., managers, analysts, HR personnel) with their expected interactions.
+
+        Step 3: Data Preparation
+        - Activity: Perform exploratory data analysis (EDA) on the datasets. Clean and preprocess the data (handle missing values, outliers, etc.). Merge datasets based on the identified relationships. Ensure data is in a suitable format for analysis.
+        - Tools: Python (Pandas, NumPy), R, SQL, or data preprocessing tools like OpenRefine.
+        - Output: Prepared, unified dataset(s).
+
+        EDA Operations Code:
+        ```python
+        import pandas as pd
+
+        # Load datasets dynamically from the provided dataset_analysis_report
+        # Code to load and merge datasets based on relationships goes here
+
+        # Perform EDA: Summary statistics, check for missing values, etc.
         """
 
-        inputs = self.tokenizer.encode(input_text, return_tensors="pt").to(device)
-
-        outputs = self.model.generate(
-            inputs,
-            max_length=1024,  # Adjust max length as needed
-            temperature=0.7,  # Set temperature for creativity level
-            top_p=0.9,  # Nucleus sampling for diverse output
-            num_return_sequences=1  # Generate a single response
+        response = self.co.chat_stream(
+            model="command-r-plus-08-2024",
+            messages=[{"role": "user", "content": input_text}]
         )
 
-        # Decode and print the output
-        decoded_output = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
-        print(decoded_output)
+        for event in response:
+            if event:
+                if event.type == "content-delta":
+                    print(event.delta.message.content.text, end="")
+                elif event.type == "stream-end":
+                    print("\nStream ended.")

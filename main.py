@@ -6,11 +6,12 @@ from DataLoader import EnhancedDatasetLoader
 from relation import SmartDatasetAnalyzer
 import json
 from Ai_decision import AIDecisionMaker
+
 load_dotenv()
 
 loader = EnhancedDatasetLoader(verbose=True)
 Relation_Analyzer = SmartDatasetAnalyzer()
-LLM = AIDecisionMaker(cohere_api_key)
+LLM = AIDecisionMaker('cohere_api_key')
 dataFrame = {}
 datasets = {
     "employee_projects": "relation_data\employee_projects.json",
