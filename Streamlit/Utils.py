@@ -76,6 +76,7 @@ def get_datasets_input():
     Collect dataset information from user in a dynamic and flexible manner
     """
     # Number of datasets to input
+    st.header("🛠 Dataset Configuration")
     num_datasets = st.sidebar.number_input(
         "How many datasets do you want to analyze?", 
         min_value=1, 

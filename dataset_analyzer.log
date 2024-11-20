@@ -5475,3 +5475,516 @@
 2024-11-20 19:01:15,935 - SmartDatasetAnalyzer - INFO - Generated analysis report
 2024-11-20 19:01:15,935 - SmartDatasetAnalyzer - INFO - Generated analysis report
 2024-11-20 19:01:15,935 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 20:31:44,390 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 20:31:45,229 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 20:31:45,241 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: a, b
+2024-11-20 20:31:45,249 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_203145.csv
+2024-11-20 20:31:45,251 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 20:32:29,058 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 20:32:29,058 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 20:32:29,357 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 20:32:29,357 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 20:32:29,360 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: a, b
+2024-11-20 20:32:29,360 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: a, b
+2024-11-20 20:32:29,365 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_203229.csv
+2024-11-20 20:32:29,365 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_203229.csv
+2024-11-20 20:32:29,367 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 20:32:29,367 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:24:55,740 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:24:56,466 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:24:56,478 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:24:56,486 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_222456.csv
+2024-11-20 22:24:56,488 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:39:34,429 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:39:34,429 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:39:35,097 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:39:35,097 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:39:35,141 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:39:35,141 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:39:35,155 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_223935.csv
+2024-11-20 22:39:35,155 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_223935.csv
+2024-11-20 22:39:35,155 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:39:35,155 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:40:17,496 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:40:17,496 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:40:17,496 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:40:17,880 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:40:17,880 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:40:17,880 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:40:17,883 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:40:17,883 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:40:17,883 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:40:17,886 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224017.csv
+2024-11-20 22:40:17,886 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224017.csv
+2024-11-20 22:40:17,886 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224017.csv
+2024-11-20 22:40:17,887 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:40:17,887 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:40:17,887 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:42:14,664 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:42:14,664 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:42:14,664 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:42:14,664 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:42:15,250 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:42:15,250 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:42:15,250 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:42:15,250 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:42:15,286 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:42:15,286 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:42:15,286 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:42:15,286 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:42:15,296 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224215.csv
+2024-11-20 22:42:15,296 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224215.csv
+2024-11-20 22:42:15,296 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224215.csv
+2024-11-20 22:42:15,296 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224215.csv
+2024-11-20 22:42:15,298 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:42:15,298 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:42:15,298 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:42:15,298 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:42:24,347 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:42:24,347 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:42:24,347 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:42:24,347 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:42:24,347 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:42:24,876 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:42:24,876 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:42:24,876 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:42:24,876 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:42:24,876 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:42:24,891 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:42:24,891 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:42:24,891 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:42:24,891 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:42:24,891 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:42:24,898 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224224.csv
+2024-11-20 22:42:24,898 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224224.csv
+2024-11-20 22:42:24,898 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224224.csv
+2024-11-20 22:42:24,898 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224224.csv
+2024-11-20 22:42:24,898 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224224.csv
+2024-11-20 22:42:24,900 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:42:24,900 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:42:24,900 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:42:24,900 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:42:24,900 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:42:50,640 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:42:50,640 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:42:50,640 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:42:50,640 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:42:50,640 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:42:50,640 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:42:50,916 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:42:50,916 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:42:50,916 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:42:50,916 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:42:50,916 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:42:50,916 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:42:50,921 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:42:50,921 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:42:50,921 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:42:50,921 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:42:50,921 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:42:50,921 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:42:50,925 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224250.csv
+2024-11-20 22:42:50,925 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224250.csv
+2024-11-20 22:42:50,925 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224250.csv
+2024-11-20 22:42:50,925 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224250.csv
+2024-11-20 22:42:50,925 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224250.csv
+2024-11-20 22:42:50,925 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224250.csv
+2024-11-20 22:42:50,928 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:42:50,928 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:42:50,928 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:42:50,928 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:42:50,928 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:42:50,928 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:45:07,755 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:45:07,755 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:45:07,755 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:45:07,755 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:45:07,755 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:45:07,755 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:45:07,755 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:45:08,228 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:45:08,228 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:45:08,228 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:45:08,228 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:45:08,228 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:45:08,228 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:45:08,228 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:45:08,257 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:45:08,257 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:45:08,257 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:45:08,257 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:45:08,257 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:45:08,257 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:45:08,257 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:45:08,266 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224508.csv
+2024-11-20 22:45:08,266 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224508.csv
+2024-11-20 22:45:08,266 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224508.csv
+2024-11-20 22:45:08,266 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224508.csv
+2024-11-20 22:45:08,266 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224508.csv
+2024-11-20 22:45:08,266 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224508.csv
+2024-11-20 22:45:08,266 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224508.csv
+2024-11-20 22:45:08,268 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:45:08,268 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:45:08,268 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:45:08,268 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:45:08,268 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:45:08,268 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:45:08,268 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:45:44,547 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:45:44,547 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:45:44,547 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:45:44,547 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:45:44,547 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:45:44,547 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:45:44,547 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:45:44,547 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:45:45,035 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:45:45,035 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:45:45,035 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:45:45,035 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:45:45,035 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:45:45,035 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:45:45,035 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:45:45,035 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:45:45,040 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:45:45,040 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:45:45,040 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:45:45,040 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:45:45,040 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:45:45,040 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:45:45,040 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:45:45,040 - SmartDatasetAnalyzer - INFO - Created merged dataset 1 from tables: b, a
+2024-11-20 22:45:45,044 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224545.csv
+2024-11-20 22:45:45,044 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224545.csv
+2024-11-20 22:45:45,044 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224545.csv
+2024-11-20 22:45:45,044 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224545.csv
+2024-11-20 22:45:45,044 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224545.csv
+2024-11-20 22:45:45,044 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224545.csv
+2024-11-20 22:45:45,044 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224545.csv
+2024-11-20 22:45:45,044 - SmartDatasetAnalyzer - INFO - Saved merged_dataset_1 to analysis_results\merged_dataset_1_20241120_224545.csv
+2024-11-20 22:45:45,047 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:45:45,047 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:45:45,047 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:45:45,047 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:45:45,047 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:45:45,047 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:45:45,047 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:45:45,047 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:48:18,314 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:48:18,314 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:48:18,314 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:48:18,314 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:48:18,314 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:48:18,314 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:48:18,314 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:48:18,314 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:48:18,314 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:48:18,413 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:18,413 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:18,413 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:18,413 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:18,413 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:18,413 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:18,413 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:18,413 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:18,413 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,054 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,054 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,054 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,054 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,054 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,054 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,054 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,054 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,054 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,252 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,252 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,252 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,252 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,252 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,252 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,252 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,252 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,252 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,754 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,754 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,754 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,754 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,754 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,754 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,754 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,754 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,754 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,786 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,786 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,786 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,786 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,786 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,786 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,786 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,786 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,786 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,798 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,798 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,798 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,798 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,798 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,798 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,798 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,798 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,798 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,838 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,838 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,838 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,838 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,838 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,838 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,838 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,838 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,838 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,859 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,859 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,859 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,859 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,859 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,859 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,859 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,859 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,859 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,904 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,904 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,904 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,904 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,904 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,904 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,904 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,904 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:19,904 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,035 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,035 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,035 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,035 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,035 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,035 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,035 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,035 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,035 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,220 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,220 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,220 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,220 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,220 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,220 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,220 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,220 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,220 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,596 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,596 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,596 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,596 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,596 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,596 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,596 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,596 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:20,596 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:48:21,088 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:48:21,088 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:48:21,088 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:48:21,088 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:48:21,088 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:48:21,088 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:48:21,088 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:48:21,088 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:48:21,088 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:48:21,092 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:48:21,092 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:48:21,092 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:48:21,092 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:48:21,092 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:48:21,092 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:48:21,092 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:48:21,092 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:48:21,092 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:52:19,315 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:52:19,315 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:52:19,315 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:52:19,315 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:52:19,315 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:52:19,315 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:52:19,315 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:52:19,315 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:52:19,315 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:52:19,315 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:52:19,479 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:19,479 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:19,479 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:19,479 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:19,479 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:19,479 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:19,479 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:19,479 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:19,479 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:19,479 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,009 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,009 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,009 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,009 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,009 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,009 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,009 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,009 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,009 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,009 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,313 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,313 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,313 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,313 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,313 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,313 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,313 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,313 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,313 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,313 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,921 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,921 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,921 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,921 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,921 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,921 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,921 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,921 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,921 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,921 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,935 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,935 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,935 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,935 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,935 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,935 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,935 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,935 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,935 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,935 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,949 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,949 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,949 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,949 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,949 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,949 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,949 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,949 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,949 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:20,949 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,009 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,009 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,009 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,009 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,009 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,009 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,009 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,009 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,009 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,009 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,038 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,038 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,038 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,038 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,038 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,038 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,038 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,038 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,038 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,038 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,060 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,060 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,060 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,060 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,060 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,060 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,060 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,060 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,060 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,060 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,186 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,186 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,186 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,186 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,186 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,186 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,186 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,186 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,186 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,186 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,385 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,385 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,385 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,385 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,385 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,385 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,385 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,385 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,385 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,385 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,769 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,769 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,769 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,769 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,769 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,769 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,769 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,769 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,769 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:21,769 - SmartDatasetAnalyzer - WARNING - Error in statistical similarity: autodetected range of [nan, nan] is not finite
+2024-11-20 22:52:22,247 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:52:22,247 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:52:22,247 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:52:22,247 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:52:22,247 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:52:22,247 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:52:22,247 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:52:22,247 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:52:22,247 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:52:22,247 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:52:22,255 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:52:22,255 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:52:22,255 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:52:22,255 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:52:22,255 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:52:22,255 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:52:22,255 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:52:22,255 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:52:22,255 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:52:22,255 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:53:44,148 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:53:44,148 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:53:44,148 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:53:44,148 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:53:44,148 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:53:44,148 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:53:44,148 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:53:44,148 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:53:44,148 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:53:44,148 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:53:44,148 - SmartDatasetAnalyzer - INFO - Starting dataset analysis...
+2024-11-20 22:53:45,441 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:53:45,441 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:53:45,441 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:53:45,441 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:53:45,441 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:53:45,441 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:53:45,441 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:53:45,441 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:53:45,441 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:53:45,441 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:53:45,441 - SmartDatasetAnalyzer - INFO - Starting dataset merging...
+2024-11-20 22:53:45,445 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:53:45,445 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:53:45,445 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:53:45,445 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:53:45,445 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:53:45,445 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:53:45,445 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:53:45,445 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:53:45,445 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:53:45,445 - SmartDatasetAnalyzer - INFO - Generated analysis report
+2024-11-20 22:53:45,445 - SmartDatasetAnalyzer - INFO - Generated analysis report

@@ -23,6 +23,36 @@ logger = logging.getLogger(__name__)
 Cohere_API_KEY = os.getenv('cohere_api_key')
 co = cohere.ClientV2(Cohere_API_KEY)
 
+PRIMARY_COLOR = "#1A73E8"      # Vibrant Blue
+SECONDARY_COLOR = "#34A853"    # Fresh Green
+BACKGROUND_COLOR = "#F1F3F4"   # Light Gray-Blue
+
+def apply_custom_styling():
+    """Apply custom CSS styling to Streamlit app"""
+    st.markdown(f"""
+    <style>
+    .reportview-container {{
+        background-color: {BACKGROUND_COLOR};
+    }}
+    .sidebar .sidebar-content {{
+        background-color: {PRIMARY_COLOR};
+        color: white;
+    }}
+    .stButton>button {{
+        background-color: {SECONDARY_COLOR};
+        color: white;
+        border-radius: 10px;
+    }}
+    .stExpander {{
+        border-radius: 10px;
+        border: 1px solid {SECONDARY_COLOR};
+    }}
+    h1, h2, h3, h4 {{
+        color: {PRIMARY_COLOR};
+    }}
+    </style>
+    """, unsafe_allow_html=True)
+
 def summary_of_data(data, report):
     status_container = st.empty()
     text_container = st.empty()
@@ -36,6 +66,7 @@ def summary_of_data(data, report):
             model="command-r-plus-08-2024",
             messages=[{"role": "user", "content": input_text}]
         )
+        status_container.info("🔍 Generating intelligent analysis...")
         for event in response:
             if event:
                 if event.type == "content-delta":
@@ -43,16 +74,16 @@ def summary_of_data(data, report):
                     
                     full_response += event.delta.message.content.text
                     
-                    text_container.markdown(full_response)
+                    text_container.markdown(f"**AI Insights:** {full_response}")
                     status_container.info("Generating analysis...")
                 
                 elif event.type == "stream-end":
                     text_container.markdown(full_response)
-                    status_container.success("Analysis complete!")
+                    status_container.success("✅ Analysis Complete!")
                     return full_response
 
     except Exception as e:
-        error_msg = f"An error occurred: {str(e)}"
+        error_msg = f"❌ Analysis Error: {str(e)}"
         status_container.error(error_msg)
         logging.error(f"Error in summary_of_data: {str(e)}")
         return None
@@ -73,9 +104,17 @@ def get_data_overview(data,dataset_analysis_report):
             st.text(st.session_state.analysis_result)
 
 def main():
-    st.set_page_config(page_title="Dataset Merger and Analyzer", layout="wide")  
+    st.set_page_config(
+        page_title="Smart Dataset Analyzer", 
+        page_icon="📊", 
+        layout="wide",
+        initial_sidebar_state="expanded"
+    )
+    
+    apply_custom_styling()
 
-    st.sidebar.header("Dataset Configuration")
+    st.title("🚀 Smart Dataset Merger and Analyzer")
+    st.markdown("Intelligently merge, analyze, and gain insights from multiple datasets.")
     default_datasets = {
         "employee_projects": "relation_data\employee_projects.json",
         "employees": "relation_data\employees.csv",
@@ -92,7 +131,7 @@ def main():
         value=0.75
     )
 
-    if st.sidebar.button("Analyze Datasets"):
+    if st.button("Analyze Datasets", type="primary"):
         try:
             # Load datasets
             dataFrame = load_datasets(datasets)
@@ -148,7 +187,7 @@ def main():
                 for merged in report["merged_results"]:
                     st.subheader(merged["name"])
                     st.write(f"**Rows:** {merged['rows']}, **Columns:** {merged['columns']}")
-
+                result = None
                 st.subheader("Dataset Overview")
                 for name, df in results.items():
                     st.write(f"Dataset: {name}")
@@ -158,8 +197,14 @@ def main():
                                 
 
             else:
+                for name, df in dataFrame.items():
+                    st.write(f"Dataset: {name}")
+                    result = get_data_overview(df,report)
+                    if result:
+                        st.write("Analysis completed successfully!")
                 st.warning("No merged datasets produced.")
-
+            st.markdown("---")
+            st.markdown("Powered by AI and Data Science 🧠💡")
         except Exception as e:
             st.error(f"Analysis Error: {e}")
             st.error(traceback.format_exc())
