@@ -16,6 +16,7 @@ from transformers import AutoTokenizer, AutoModel
 import torch
 import json
 import warnings
+import shutil
 warnings.filterwarnings('ignore')
 
 class SmartDatasetAnalyzer:
@@ -519,6 +520,14 @@ def analyze_and_merge_datasets(
     save_format: str = 'csv',
     cache_dir: Optional[str] = None
 ) -> Dict[str, pd.DataFrame]:
+    
+    if os.path.exists(output_dir):
+        try:
+            # Remove entire output directory contents
+            shutil.rmtree(output_dir)
+            print(f"Cleaned previous analysis data from {output_dir}")
+        except Exception as e:
+            print(f"Error cleaning output directory: {e}")
 
     try:
         analyzer = SmartDatasetAnalyzer(

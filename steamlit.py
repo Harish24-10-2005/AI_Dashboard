@@ -9,75 +9,73 @@ import json
 from Ai_decision import AIDecisionMaker
 import logging
 import traceback
+from LLM.Summary import Summary_overview
+from Streamlit.Utils import input_prompt_summary, load_datasets, get_datasets_input
+import cohere
+from dotenv import load_dotenv
+import time
+import os
+load_dotenv()
 
-# Configure logging
-logging.basicConfig(level=logging.INFO, 
-                    format='%(asctime)s - %(levelname)s: %(message)s')
+logging.basicConfig(level=logging.INFO,format='%(asctime)s - %(levelname)s: %(message)s')
 logger = logging.getLogger(__name__)
 
-def load_datasets(datasets):
-    """
-    Safely load datasets with error handling
-    """
-    dataFrame = {}
-    loader = EnhancedDatasetLoader(verbose=True)
-    
-    for key, value in datasets.items():
-        try:
-            loader.load_dataset(value, key)
-            df = loader.get_dataset(key)
-            dataFrame[key] = df
-        except Exception as e:
-            st.error(f"Error loading dataset {key}: {e}")
-            logger.error(f"Dataset loading error: {traceback.format_exc()}")
-    
-    return dataFrame
+Cohere_API_KEY = os.getenv('cohere_api_key')
+co = cohere.ClientV2(Cohere_API_KEY)
 
+def summary_of_data(data, report):
+    status_container = st.empty()
+    text_container = st.empty()
     
-def get_datasets_input():
-    """
-    Collect dataset information from user in a dynamic and flexible manner
-    """
-    # Number of datasets to input
-    num_datasets = st.sidebar.number_input(
-        "How many datasets do you want to analyze?", 
-        min_value=1, 
-        max_value=10, 
-        value=2,
-        key="num_datasets_input"
-    )
-    
-    # Dictionary to store dataset information
-    datasets = {}
-    
-    # Input fields for each dataset
-    for i in range(num_datasets):
-        st.sidebar.subheader(f"Dataset {i+1}")
+    full_response = ""
+    input_text = input_prompt_summary(data,report)
+    try:
+        status_container.info("Starting analysis...")
         
-        dataset_name = st.sidebar.text_input(
-            f"Enter name for Dataset {i+1}", 
-            placeholder="e.g., employees",
-            key=f"dataset_name_input_{i}"
+        response = co.chat_stream(
+            model="command-r-plus-08-2024",
+            messages=[{"role": "user", "content": input_text}]
         )
-        dataset_path = st.sidebar.text_input(
-            f"Enter full path for {dataset_name or f'Dataset{i+1}'}", 
-            placeholder="C:/data/employees.csv",
-            key=f"dataset_path_direct_input_{i}"
-        )
-        if dataset_name and dataset_path:
-            if '\\\\'in dataset_path and 'https:' not in dataset_path and 'http:' not in dataset_path:
-                dataset_path = dataset_path.replace('\\\\', '\\')
-        datasets[dataset_name] = dataset_path
+        for event in response:
+            if event:
+                if event.type == "content-delta":
+                    print(f"Received delta: {event.delta.message.content.text}")
+                    
+                    full_response += event.delta.message.content.text
+                    
+                    text_container.markdown(full_response)
+                    status_container.info("Generating analysis...")
+                
+                elif event.type == "stream-end":
+                    text_container.markdown(full_response)
+                    status_container.success("Analysis complete!")
+                    return full_response
+
+    except Exception as e:
+        error_msg = f"An error occurred: {str(e)}"
+        status_container.error(error_msg)
+        logging.error(f"Error in summary_of_data: {str(e)}")
+        return None
+
+
+def get_data_overview(data,dataset_analysis_report):
+    st.title("Data Analysis Summary")
     
-    return datasets
+    with st.expander("Debug Info"):
+        st.write("Data Preview:")
+        st.dataframe(data)
+        st.write("Analysis Report:")
+        st.json(dataset_analysis_report)
+
+    st.session_state.analysis_result = summary_of_data(data, dataset_analysis_report)
+    if st.session_state.analysis_result:
+        with st.expander("Raw Response"):
+            st.text(st.session_state.analysis_result)
 
 def main():
-    st.title("Dataset Merger and Analyzer")
+    st.set_page_config(page_title="Dataset Merger and Analyzer", layout="wide")  
 
-    # Sidebar for dataset selection
     st.sidebar.header("Dataset Configuration")
-    
-    # Default dataset paths
     default_datasets = {
         "employee_projects": "relation_data\employee_projects.json",
         "employees": "relation_data\employees.csv",
@@ -94,7 +92,6 @@ def main():
         value=0.75
     )
 
-    # Perform analysis button
     if st.sidebar.button("Analyze Datasets"):
         try:
             # Load datasets
@@ -107,7 +104,6 @@ def main():
             for name, df in dataFrame.items():
                 st.write(f"Dataset: {name}")
                 st.dataframe(df.head())
-            st.write(dataFrame)
             results,report = relation.analyze_and_merge_datasets(
                 dataFrame,
                 output_dir='analysis_results',
@@ -125,12 +121,10 @@ def main():
                     st.dataframe(df)
                     st.write(f"Shape: {df.shape}")
 
-                # Display analysis report
                 st.subheader("Analysis Report")
                 st.title(report["title"])
                 st.write(f"**Generated On:** {report['generated_on']}")
 
-                # Original Datasets Section
                 st.header("Original Datasets")
                 for dataset in report["original_datasets"]:
                     st.subheader(dataset["name"])
@@ -139,7 +133,6 @@ def main():
                     for col, col_type in dataset["column_types"].items():
                         st.write(f"- `{col}`: {col_type}")
 
-                # Detected Relationships Section
                 st.header("Detected Relationships")
                 relationship_data = []
                 for rel in report["detected_relationships"]:
@@ -151,34 +144,18 @@ def main():
                     ])
                 
                 st.write(pd.DataFrame(relationship_data, columns=["Relationship", "Similarity", "Confidence", "Cardinality"]))
-
-                # Merged Results Section
                 st.header("Merged Results")
                 for merged in report["merged_results"]:
                     st.subheader(merged["name"])
                     st.write(f"**Rows:** {merged['rows']}, **Columns:** {merged['columns']}")
 
-                # Visualization options
-                st.subheader("Analysis Visualization")
-                
-                # Relationship graph
-                if st.checkbox("Show Relationship Graph"):
-                    try:
-                        import networkx as nx
-                        import matplotlib.pyplot as plt
-                        
-                        G = nx.DiGraph()
-                        for rel in report.get('detected_relationships', []):
-                            source, target = rel['relationship'].split('<-->')
-                            G.add_edge(source.strip(), target.strip())
-                        
-                        fig, ax = plt.subplots(figsize=(10, 6))
-                        nx.draw(G, with_labels=True, node_color='lightblue', 
-                                node_size=1500, font_size=10, 
-                                font_weight='bold', ax=ax)
-                        st.pyplot(fig)
-                    except Exception as viz_error:
-                        st.error(f"Visualization error: {viz_error}")
+                st.subheader("Dataset Overview")
+                for name, df in results.items():
+                    st.write(f"Dataset: {name}")
+                    result = get_data_overview(df,report)
+                    if result:
+                        st.write("Analysis completed successfully!")
+                                
 
             else:
                 st.warning("No merged datasets produced.")
