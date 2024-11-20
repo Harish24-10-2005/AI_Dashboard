@@ -45,7 +45,8 @@ if len(datasets) > 1:
             print(df.head())
             print(f"Shape: {df.shape}")
             print("Columns:", df.columns.tolist())
-    LLM.summary_of_data(results,report)
+            # LLM.create_code(df.head(),report)
+            break
 
 else:
     for key,value in datasets.items():
@@ -54,7 +55,7 @@ else:
         print(df.head())
         dataFrame[key] = df
 
-# loader.load_dataset("steve1215rogg/student-lifestyle-dataset", "titanic_data")
+# loader.load_dataset("relation_data\datasets.xlsx", "titanic_data")
 
 # df = loader.get_dataset("titanic_data")
 

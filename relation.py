@@ -241,18 +241,26 @@ class SmartDatasetAnalyzer:
         self.logger.info("Starting dataset analysis...")
         
         relationships = defaultdict(list)
-        cache_file = None
+        # cache_file = None
         
-        if self.cache_dir:
-            cache_file = Path(self.cache_dir) / "relationships_cache.json"
-            if cache_file.exists():
-                try:
-                    with open(cache_file, 'r') as f:
-                        relationships = defaultdict(list, json.load(f))
-                    self.logger.info("Loaded relationships from cache")
-                    return relationships
-                except Exception as e:
-                    self.logger.warning(f"Failed to load cache: {str(e)}")
+        # if self.cache_dir:
+        #     cache_file = Path(self.cache_dir) / "relationships_cache.json"
+        #     if cache_file.exists():
+        #         try:
+        #             with open(cache_file, 'r') as f:
+        #                 cached_relationships = json.load(f)
+        #             self.logger.info("Loaded relationships from cache")
+        #             for key, rels in cached_relationships.items():
+        #                 table1, table2 = key.split('-')
+        #                 if table1 in datasets and table2 in datasets:
+        #                     relationships[key] = [
+        #                         rel for rel in rels
+        #                         if rel['column1'] in datasets[table1].columns and rel['column2'] in datasets[table2].columns
+        #                     ]
+        #             self.logger.info("Filtered cached relationships based on current datasets")
+        #             return relationships
+        #         except Exception as e:
+        #             self.logger.warning(f"Failed to load cache: {str(e)}")
         
         def process_column_pair(args: Tuple) -> Optional[Dict]:
             df1_name, df2_name, col1, col2 = args
@@ -303,13 +311,13 @@ class SmartDatasetAnalyzer:
             if result:
                 key = f"{result['table1']}-{result['table2']}"
                 relationships[key].append(result)
-        if cache_file:
-            try:
-                with open(cache_file, 'w') as f:
-                    json.dump(dict(relationships), f)
-                self.logger.info("Cached relationships")
-            except Exception as e:
-                self.logger.warning(f"Failed to cache relationships: {str(e)}")
+        # if cache_file:
+        #     try:
+        #         with open(cache_file, 'w') as f:
+        #             json.dump(dict(relationships), f)
+        #         self.logger.info("Cached relationships")
+        #     except Exception as e:
+        #         self.logger.warning(f"Failed to cache relationships: {str(e)}")
         
         return relationships
     
@@ -518,10 +526,12 @@ def analyze_and_merge_datasets(
             use_llm=use_llm,
             cache_dir=cache_dir
         )
-    
-        relationships = analyzer.analyze_datasets(datasets)      
+        print("Analyzing datasets...")
+        relationships = analyzer.analyze_datasets(datasets) 
+        print("Found relationships:", relationships)     
+        print("Merging datasets...")
         results = analyzer.merge_datasets(datasets, relationships)
-        
+        print("Saving results...")
         analyzer.save_results(results, output_dir, format=save_format)
         
         report = analyzer.generate_report(datasets, relationships, results)
