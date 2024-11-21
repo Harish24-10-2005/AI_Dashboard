@@ -2,20 +2,27 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import relation
-import plotly.express as px
-import plotly.graph_objs as go
 from dotenv import load_dotenv
+from DataLoader import EnhancedDatasetLoader
+from relation import SmartDatasetAnalyzer
+import json
+from Ai_decision import AIDecisionMaker
 import logging
 import traceback
+from LLM.Summary import Summary_overview
+from Streamlit.Utils import input_prompt_summary, load_datasets, get_datasets_input
 import cohere
+import time
 import os
 
-# Configuration
-load_dotenv()
+# Logging Configuration
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s: %(message)s')
 logger = logging.getLogger(__name__)
 
-# Initialize Cohere Client
+# Load Environment Variables
+load_dotenv()
+
+# API Configuration
 Cohere_API_KEY = os.getenv('cohere_api_key')
 co = cohere.ClientV2(Cohere_API_KEY)
 
@@ -23,6 +30,7 @@ co = cohere.ClientV2(Cohere_API_KEY)
 PRIMARY_COLOR = "#1A73E8"      # Vibrant Blue
 SECONDARY_COLOR = "#34A853"    # Fresh Green
 BACKGROUND_COLOR = "#F1F3F4"   # Light Gray-Blue
+
 def apply_custom_styling():
     """Apply custom CSS styling to Streamlit app"""
     st.markdown(f"""
@@ -49,190 +57,171 @@ def apply_custom_styling():
     </style>
     """, unsafe_allow_html=True)
 
-def home_page():
-    """Landing page for the application"""
-    st.title("🚀 Smart Dataset Merger and Analyzer")
-    st.markdown("""
-    ## Welcome to Your Data Intelligence Platform
+def stream_ai_analysis(data, report):
+    """Stream AI-powered data analysis"""
+    status_container = st.empty()
+    text_container = st.empty()
     
-    This application helps you:
-    - 📊 Upload and merge multiple datasets
-    - 🔍 Analyze dataset relationships
-    - 💡 Generate AI-powered insights
+    full_response = ""
+    input_text = input_prompt_summary(data, report)
     
-    Get started by navigating through the pages in the sidebar!
-    """)
-    
-    st.image("/api/placeholder/800/400", caption="Data Analysis Dashboard")
+    try:
+        status_container.info("Starting AI-powered analysis...")
+        
+        response = co.chat_stream(
+            model="command-r-plus-08-2024",
+            messages=[{"role": "user", "content": input_text}]
+        )
+        
+        status_container.info("🔍 Generating intelligent insights...")
+        
+        for event in response:
+            if event:
+                if event.type == "content-delta":
+                    full_response += event.delta.message.content.text
+                    text_container.markdown(f"**AI Insights:** {full_response}")
+                    status_container.info("Generating analysis...")
+                
+                elif event.type == "stream-end":
+                    text_container.markdown(full_response)
+                    status_container.success("✅ Analysis Complete!")
+                    return full_response
 
-def dataset_upload_page():
-    """Page for dataset configuration and upload"""
-    st.title("📤 Dataset Configuration")
-    
-    # File uploader
-    uploaded_files = st.file_uploader(
-        "Upload Datasets", 
-        accept_multiple_files=True, 
-        type=['csv', 'xlsx', 'json']
-    )
-    
-    # Dataset preview section
-    if uploaded_files:
-        st.subheader("Uploaded Datasets Preview")
-        for file in uploaded_files:
-            try:
-                # Determine file type and read accordingly
-                if file.name.endswith('.csv'):
-                    df = pd.read_csv(file)
-                elif file.name.endswith('.xlsx'):
-                    df = pd.read_excel(file)
-                elif file.name.endswith('.json'):
-                    df = pd.read_json(file)
-                
-                st.write(f"Dataset: {file.name}")
-                st.dataframe(df.head())
-                st.write(f"Shape: {df.shape}")
-            except Exception as e:
-                st.error(f"Error processing {file.name}: {e}")
-    
-    # Advanced settings
-    st.sidebar.header("Analysis Settings")
-    min_similarity = st.sidebar.slider(
-        "Minimum Relationship Similarity", 
-        min_value=0.0, 
-        max_value=1.0, 
-        value=0.75,
-        help="Threshold for detecting dataset relationships"
-    )
-    use_ai_analysis = st.sidebar.checkbox("Enable AI-Powered Analysis", value=True)
-    
-    # Analyze button
-    if st.button("Prepare Datasets for Analysis"):
-        # Store datasets in session state for next page
-        st.session_state.uploaded_files = uploaded_files
-        st.session_state.min_similarity = min_similarity
-        st.session_state.use_ai_analysis = use_ai_analysis
-        st.success("Datasets prepared! Navigate to Analysis Page.")
+    except Exception as e:
+        error_msg = f"❌ Analysis Error: {str(e)}"
+        status_container.error(error_msg)
+        logging.error(f"Error in AI analysis: {str(e)}")
+        return None
 
-def dataset_analysis_page():
-    """Page for dataset analysis and merging"""
-    st.title("🔬 Dataset Analysis")
+def get_dataset_overview(data, dataset_analysis_report):
+    """Generate comprehensive dataset overview"""
+    st.title("Dataset Analysis Overview")
     
-    # Check if datasets are available
-    if 'uploaded_files' not in st.session_state or not st.session_state.uploaded_files:
-        st.warning("Please upload datasets first in the Dataset Configuration page.")
-        return
+    # Debug Information Expander
+    with st.expander("Dataset Details"):
+        st.write("Data Preview:")
+        st.dataframe(data.head())
+        
+        st.write("Dataset Statistics:")
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.metric("Total Rows", data.shape[0])
+            st.metric("Total Columns", data.shape[1])
+        
+        with col2:
+            st.metric("Memory Usage", f"{data.memory_usage().sum() / 1024**2:.2f} MB")
+            st.metric("Data Types", ", ".join(data.dtypes.unique().astype(str)))
     
-    # Load datasets
-    dataframes = {}
-    for file in st.session_state.uploaded_files:
-        try:
-            if file.name.endswith('.csv'):
-                df = pd.read_csv(file)
-            elif file.name.endswith('.xlsx'):
-                df = pd.read_excel(file)
-            elif file.name.endswith('.json'):
-                df = pd.read_json(file)
-            
-            dataframes[file.name] = df
-        except Exception as e:
-            st.error(f"Error loading {file.name}: {e}")
+    # AI-Powered Insights
+    st.subheader("🤖 AI-Powered Insights")
+    ai_analysis = stream_ai_analysis(data, dataset_analysis_report)
     
-    # Perform dataset analysis
-    if st.button("Merge and Analyze Datasets"):
-        with st.spinner("Analyzing datasets..."):
-            try:
-                results, report = relation.analyze_and_merge_datasets(
-                    dataframes,
-                    use_llm=st.session_state.use_ai_analysis,
-                    min_similarity=st.session_state.min_similarity
-                )
-                
-                # Display analysis results
-                st.success("Analysis Completed Successfully!")
-                
-                # Merged Datasets
-                st.subheader("Merged Datasets")
-                for name, df in results.items():
-                    st.write(f"Dataset: {name}")
-                    st.dataframe(df)
-                    st.write(f"Shape: {df.shape}")
-                
-                # Store results for insights page
-                st.session_state.analysis_results = results
-                st.session_state.analysis_report = report
-                
-            except Exception as e:
-                st.error(f"Analysis Error: {e}")
-                logger.error(traceback.format_exc())
-
-def insights_page():
-    """Page for generating AI-powered insights"""
-    st.title("💡 Data Insights")
+    # Statistical Summary
+    st.subheader("Statistical Summary")
+    numeric_columns = data.select_dtypes(include=[np.number]).columns
     
-    # Check if analysis results are available
-    if 'analysis_results' not in st.session_state:
-        st.warning("Please complete dataset analysis first.")
-        return
+    if len(numeric_columns) > 0:
+        summary_stats = data[numeric_columns].describe()
+        st.dataframe(summary_stats)
     
-    # Display relationship visualization
-    st.subheader("Dataset Relationship Visualization")
-    relationships = st.session_state.analysis_report.get("detected_relationships", [])
-    relationship_df = pd.DataFrame(relationships)
-    
-    fig = px.bar(
-        relationship_df, 
-        x="relationship", 
-        y="similarity", 
-        title="Dataset Relationship Similarities",
-        color="confidence"
-    )
-    st.plotly_chart(fig, use_container_width=True)
-    
-    # AI-Generated Insights
-    st.subheader("AI-Powered Analysis")
-    if st.button("Generate Insights"):
-        with st.spinner("Generating insights..."):
-            try:
-                # Use Cohere for generating insights
-                response = co.chat(
-                    model="command-r-plus-08-2024",
-                    message=f"Provide deep insights for these datasets: {st.session_state.analysis_report}"
-                )
-                st.markdown(response.text)
-            except Exception as e:
-                st.error(f"Insight Generation Error: {e}")
+    return ai_analysis
 
 def main():
+    # Streamlit Page Configuration
     st.set_page_config(
         page_title="Smart Dataset Analyzer", 
         page_icon="📊", 
-        layout="wide"
+        layout="wide",
+        initial_sidebar_state="expanded"
     )
     
+    # Apply Custom Styling
     apply_custom_styling()
-    
-    # Page selection
-    page = st.sidebar.radio("Navigate", [
-        "Home", 
-        "Dataset Configuration", 
-        "Dataset Analysis", 
-        "Insights"
-    ])
-    
-    # Page routing
-    if page == "Home":
-        home_page()
-    elif page == "Dataset Configuration":
-        dataset_upload_page()
-    elif page == "Dataset Analysis":
-        dataset_analysis_page()
-    elif page == "Insights":
-        insights_page()
-    
-    # Footer
-    st.sidebar.markdown("---")
-    st.sidebar.markdown("Powered by AI and Data Science 🧠💡")
+
+    # Initialize Session State
+    if 'analysis_results' not in st.session_state:
+        st.session_state.update({
+            'analysis_results': None,
+            'analysis_report': None,
+            'selected_dataset': None,
+            'dataset_overviews': {}
+        })
+
+    # Main Title
+    st.title("🚀 Smart Dataset Merger and Analyzer")
+    st.markdown("Intelligently merge, analyze, and gain insights from multiple datasets.")
+
+    # Sidebar Configuration
+    datasets = get_datasets_input()
+    use_llm = st.sidebar.checkbox("Use AI Analysis", value=True)
+    min_similarity = st.sidebar.slider(
+        "Minimum Similarity Threshold", 
+        min_value=0.0, 
+        max_value=1.0, 
+        value=0.75
+    )
+
+    # Analysis Button
+    if st.button("Analyze Datasets", type="primary"):
+        try:
+            # Load Datasets
+            dataFrame = load_datasets(datasets)
+            if not dataFrame:
+                st.error("No datasets loaded. Please check your files.")
+                return
+
+            # Display Input Datasets
+            st.subheader("Input Datasets")
+            for name, df in dataFrame.items():
+                st.write(f"Dataset: {name}")
+                st.dataframe(df.head())
+            
+            # Perform Dataset Analysis
+            results, report = relation.analyze_and_merge_datasets(
+                dataFrame,
+                output_dir='analysis_results',
+                use_llm=use_llm,
+                min_similarity=min_similarity,
+                save_format='csv',
+                cache_dir='analysis_cache'
+            )
+
+            # Store Results in Session State
+            st.session_state.analysis_results = results
+            st.session_state.analysis_report = report
+
+        except Exception as e:
+            st.error(f"Analysis Error: {e}")
+            st.error(traceback.format_exc())
+            logger.error(f"Analysis error: {traceback.format_exc()}")
+
+    # Display Analysis Results
+    if st.session_state.analysis_results:
+        results = st.session_state.analysis_results
+        report = st.session_state.analysis_report
+
+        st.subheader("Merged Datasets")
+        for name, df in results.items():
+            col1, col2 = st.columns([3, 1])
+            
+            with col1:
+                st.write(f"Dataset: {name}")
+                st.dataframe(df.head())
+                st.write(f"Shape: {df.shape}")
+            
+            with col2:
+                if st.button(f"Analyze {name}", key=f"analyze_button_{name}"):
+                    # Generate or retrieve dataset overview
+                    if name not in st.session_state.dataset_overviews:
+                        overview = get_dataset_overview(df, report)
+                        st.session_state.dataset_overviews[name] = overview
+                    else:
+                        st.write(st.session_state.dataset_overviews[name])
+
+    st.markdown("---")
+    st.markdown("Powered by AI and Data Science 🧠💡")
 
 if __name__ == "__main__":
+    load_dotenv()
     main()

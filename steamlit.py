@@ -10,7 +10,7 @@ from Ai_decision import AIDecisionMaker
 import logging
 import traceback
 from LLM.Summary import Summary_overview
-from Streamlit.Utils import input_prompt_summary, load_datasets, get_datasets_input
+from Streamlit.Utils import input_prompt_summary, load_datasets, get_datasets_input,apply_custom_styling,AI_Visualization
 import cohere
 from dotenv import load_dotenv
 import time
@@ -23,35 +23,6 @@ logger = logging.getLogger(__name__)
 Cohere_API_KEY = os.getenv('cohere_api_key')
 co = cohere.ClientV2(Cohere_API_KEY)
 
-PRIMARY_COLOR = "#1A73E8"      # Vibrant Blue
-SECONDARY_COLOR = "#34A853"    # Fresh Green
-BACKGROUND_COLOR = "#F1F3F4"   # Light Gray-Blue
-
-def apply_custom_styling():
-    """Apply custom CSS styling to Streamlit app"""
-    st.markdown(f"""
-    <style>
-    .reportview-container {{
-        background-color: {BACKGROUND_COLOR};
-    }}
-    .sidebar .sidebar-content {{
-        background-color: {PRIMARY_COLOR};
-        color: white;
-    }}
-    .stButton>button {{
-        background-color: {SECONDARY_COLOR};
-        color: white;
-        border-radius: 10px;
-    }}
-    .stExpander {{
-        border-radius: 10px;
-        border: 1px solid {SECONDARY_COLOR};
-    }}
-    h1, h2, h3, h4 {{
-        color: {PRIMARY_COLOR};
-    }}
-    </style>
-    """, unsafe_allow_html=True)
 
 def summary_of_data(data, report):
     status_container = st.empty()
@@ -113,7 +84,7 @@ def main():
     
     apply_custom_styling()
 
-    st.title("🚀 Smart Dataset Merger and Analyzer")
+    st.title("🚀 :red[AI] DashBoard Generator")
     st.markdown("Intelligently merge, analyze, and gain insights from multiple datasets.")
     default_datasets = {
         "employee_projects": "relation_data\employee_projects.json",
@@ -130,86 +101,99 @@ def main():
         max_value=1.0, 
         value=0.75
     )
+    page = st.sidebar.selectbox("Select Page", ["Data Analysis", "AI Visualization"])
+    if page == "Data Analysis":
+        st.header("🛠 Dataset Configuration")
+        if st.button("Analyze Datasets", type="primary"):
+            try:
+                dataFrame = load_datasets(datasets)
+                if not dataFrame:
+                    st.error("No datasets loaded. Please check your files.")
+                    return
 
-    if st.button("Analyze Datasets", type="primary"):
-        try:
-            # Load datasets
-            dataFrame = load_datasets(datasets)
-            if not dataFrame:
-                st.error("No datasets loaded. Please check your files.")
-                return
-
-            st.subheader("Input Datasets")
-            for name, df in dataFrame.items():
-                st.write(f"Dataset: {name}")
-                st.dataframe(df.head())
-            results,report = relation.analyze_and_merge_datasets(
-                dataFrame,
-                output_dir='analysis_results',
-                use_llm=True,
-                min_similarity=0.75,
-                save_format='csv',
-                cache_dir='analysis_cache'
-            )
-
-            if results:
-                st.success("Analysis Completed Successfully!")
-                st.subheader("Merged Datasets")
-                for name, df in results.items():
-                    st.write(f"Dataset: {name}")
-                    st.dataframe(df)
-                    st.write(f"Shape: {df.shape}")
-
-                st.subheader("Analysis Report")
-                st.title(report["title"])
-                st.write(f"**Generated On:** {report['generated_on']}")
-
-                st.header("Original Datasets")
-                for dataset in report["original_datasets"]:
-                    st.subheader(dataset["name"])
-                    st.write(f"**Rows:** {dataset['rows']}, **Columns:** {dataset['columns']}")
-                    st.write("**Column Types:**")
-                    for col, col_type in dataset["column_types"].items():
-                        st.write(f"- `{col}`: {col_type}")
-
-                st.header("Detected Relationships")
-                relationship_data = []
-                for rel in report["detected_relationships"]:
-                    relationship_data.append([
-                        rel["relationship"],
-                        rel["similarity"],
-                        rel["confidence"],
-                        rel["cardinality"]
-                    ])
-                
-                st.write(pd.DataFrame(relationship_data, columns=["Relationship", "Similarity", "Confidence", "Cardinality"]))
-                st.header("Merged Results")
-                for merged in report["merged_results"]:
-                    st.subheader(merged["name"])
-                    st.write(f"**Rows:** {merged['rows']}, **Columns:** {merged['columns']}")
-                result = None
-                st.subheader("Dataset Overview")
-                for name, df in results.items():
-                    st.write(f"Dataset: {name}")
-                    result = get_data_overview(df,report)
-                    if result:
-                        st.write("Analysis completed successfully!")
-                                
-
-            else:
+                st.subheader("Input Datasets", divider=True)
+                results=None
                 for name, df in dataFrame.items():
                     st.write(f"Dataset: {name}")
-                    result = get_data_overview(df,report)
-                    if result:
-                        st.write("Analysis completed successfully!")
-                st.warning("No merged datasets produced.")
-            st.markdown("---")
-            st.markdown("Powered by AI and Data Science 🧠💡")
-        except Exception as e:
-            st.error(f"Analysis Error: {e}")
-            st.error(traceback.format_exc())
-            logger.error(f"Analysis error: {traceback.format_exc()}")
+                    st.dataframe(df.head())
+                results,report = relation.analyze_and_merge_datasets(
+                    dataFrame,
+                    output_dir='analysis_results',
+                    use_llm=True,
+                    min_similarity=0.75,
+                    save_format='csv',
+                    cache_dir='analysis_cache'
+                )
 
+                if results:
+                    st.success("Analysis Completed Successfully!")
+                    st.subheader("Merged Datasets", divider=True)
+
+                    for name, df in results.items():
+                        st.write(f"Dataset: {name}")
+                        st.dataframe(df)
+                        st.write(f"Shape: {df.shape}")
+
+                    st.title(report["title"])
+                    st.write(f"**Generated On:** {report['generated_on']}")
+                    st.header("Original Datasets")
+                    for dataset in report["original_datasets"]:
+                        st.subheader(dataset["name"])
+                        st.write(f"**Rows:** {dataset['rows']}, **Columns:** {dataset['columns']}")
+                        st.write("**Column Types:**")
+                        for col, col_type in dataset["column_types"].items():
+                            st.write(f"- `{col}`: {col_type}")
+
+                    st.header("Detected Relationships", divider="gray")
+                    relationship_data = []
+                    for rel in report["detected_relationships"]:
+                        relationship_data.append([
+                            rel["relationship"],
+                            rel["similarity"],
+                            rel["confidence"],
+                            rel["cardinality"]
+                        ])
+                    
+                    st.write(pd.DataFrame(relationship_data, columns=["Relationship", "Similarity", "Confidence", "Cardinality"]))
+                    for merged in report["merged_results"]:
+                        st.subheader(merged["name"], divider="gray")
+                        st.write(f"**Rows:** {merged['rows']}, **Columns:** {merged['columns']}")
+                    st.subheader("Dataset Available for Analysis", divider=True)
+                    for name, df in results.items():
+                        st.write(f"Dataset: {name}")
+                        result = get_data_overview(df,report)
+                        if result:
+                            st.write("Analysis completed successfully!")
+                    st.session_state.results = results
+                    st.session_state.report = report
+                    
+
+                else:
+                    for name, df in dataFrame.items():
+                        st.write(f"Dataset: {name}")
+                        result = get_data_overview(df,report)
+                        if result:
+                            st.write("Analysis completed successfully!")
+                    st.warning("No merged datasets produced.")
+                    st.session_state.results = dataFrame
+                    st.session_state.report = report
+                st.markdown("---")
+                st.markdown("Powered by AI and Data Science 🧠💡")
+
+            except Exception as e:
+                st.error(f"Analysis Error: {e}")
+                st.error(traceback.format_exc())
+                logger.error(f"Analysis error: {traceback.format_exc()}")
+        
+    if page == "AI Visualization":
+        if 'results' not in st.session_state or 'report' not in st.session_state:
+            st.write("Please analyze the datasets first to view visualizations.") 
+        else:
+            st.title("AI Visualizations")
+            results = st.session_state.results
+            for name, df in results.items():
+                st.write(f"Dataset: {name}")
+                AI_Visualization(df, st.session_state.report)
 if __name__ == "__main__":
     load_dotenv()
     main()
