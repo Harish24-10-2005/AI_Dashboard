@@ -1,4 +1,4 @@
-# AIDASHBOARD Generator
+# 🚀AI DASHBOARD Generator
 
 This is a simple Streamlit app. Follow the steps below to run the app locally on your system.
 
