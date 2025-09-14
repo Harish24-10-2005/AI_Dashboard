@@ -112,7 +112,7 @@ def send_async_generation_request(
     return response
 
 
-prompt = "dark high contrast render of a psychedelic tree of life illuminating dust in a mystical cave." #@param {type:"string"}
+prompt = "generate an animated image for cracker - Sutli bomb" #@param {type:"string"}
 negative_prompt = "" #@param {type:"string"}
 aspect_ratio = "3:2" #@param ["21:9", "16:9", "3:2", "5:4", "1:1", "4:5", "2:3", "9:16", "9:21"]
 seed = 0 #@param {type:"integer"}

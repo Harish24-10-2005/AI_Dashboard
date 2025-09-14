@@ -15,9 +15,16 @@ load_dotenv()
 class lida_Model:
     def __init__(self):
         self.Cohere_API_KEY = os.getenv('cohere_api_key')
-        self.cohere_client = Client(self.Cohere_API_KEY)
-        self.text_gen = llm("cohere",api_key=self.Cohere_API_KEY)
-        self.lida = Manager(text_gen=self.text_gen)
+        self.cohere_client = None
+        self.text_gen = None
+        if self.Cohere_API_KEY:
+            try:
+                self.cohere_client = Client(self.Cohere_API_KEY)
+                self.text_gen = llm("cohere", api_key=self.Cohere_API_KEY)
+            except Exception as e:
+                print(f"Warning: Failed to initialize Cohere client: {e}")
+        # Manager can be constructed with or without a text generator, but AI features require it
+        self.lida = Manager(text_gen=self.text_gen) if self.text_gen else Manager()
         self.textgen_config = TextGenerationConfig(
                     n=1,  # Number of responses
                     temperature=0.5,  # Creativity level
@@ -33,6 +40,28 @@ class lida_Model:
 
     def visualize(self, summary, goal,library):
         return self.lida.visualize(summary=summary, goal=goal, textgen_config=self.textgen_config, library=library)
+    
+    def goals_dashboard(self, summary):
+        all_goals = []
+        batch_size = 2  # Start with a batch size of 100
+        current_n = batch_size
+
+        while len(all_goals) < 9:
+            try:
+                goals_batch = self.lida.goals(summary, n=current_n, textgen_config=self.textgen_config)
+                
+                if not goals_batch:
+                    break  # Stop if no more goals are returned
+                
+                all_goals.extend(goals_batch)
+                
+                current_n += batch_size
+            
+            except Exception as e:
+                print(f"Error occurred: {e}")
+                break  
+        return all_goals
+
 
 
 # l = lida_Model()

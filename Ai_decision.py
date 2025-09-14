@@ -1,29 +1,37 @@
+import os
+import json
+import logging
+from typing import Dict
+
 import pandas as pd
 import streamlit as st
-from typing import List, Dict, Union, Optional, Tuple
-import logging
-import json
 import torch
-from transformers import AutoTokenizer, AutoModel, RobertaTokenizer, RobertaModel
 import cohere
+from transformers import AutoTokenizer, AutoModel, RobertaTokenizer, RobertaModel
+from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
 from scipy import stats
 import category_encoders as ce
 from pandas.api.types import is_numeric_dtype, is_string_dtype, is_categorical_dtype
-from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig
-import os
 class AIDecisionMaker:
-    def __init__(self, cohere_api_key: str):
-        import os
-        api_key = "1TyaPaqTNlXozRCJYWb1RSw30nkPwPqbG8ApPLFr"
-        self.co = cohere.ClientV2(api_key)
+    def __init__(self, cohere_api_key: str | None = None):
+        # Prefer env var if explicit key not provided
+        api_key = cohere_api_key or os.getenv("cohere_api_key")
+        self.co = None
+        if api_key:
+            try:
+                self.co = cohere.ClientV2(api_key)
+            except Exception as e:
+                logging.warning(f"Failed to initialize Cohere client: {e}")
 
     def analyze_error(self, error_message: str, code_context: str) -> Dict[str, str]:
         """Analyze errors using CodeBERT and Cohere for intelligent error resolution."""
         try:
-            # Get CodeBERT embeddings for error context
-            inputs = self.tokenizer(code_context, return_tensors="pt", truncation=True, max_length=512)
-            with torch.no_grad():
-                code_embeddings = self.model(**inputs).last_hidden_state.mean(dim=1)
+            # Get CodeBERT embeddings for error context if model/tokenizer are available
+            code_embeddings = None
+            if hasattr(self, "tokenizer") and hasattr(self, "model") and self.tokenizer and self.model:
+                inputs = self.tokenizer(code_context, return_tensors="pt", truncation=True, max_length=512)
+                with torch.no_grad():
+                    code_embeddings = self.model(**inputs).last_hidden_state.mean(dim=1)
             
             # Generate error analysis using Cohere
             prompt = f"""
@@ -37,7 +45,9 @@ class AIDecisionMaker:
             3. Prevention strategies
             """
             
-            response = self.cohere_client.generate(
+            if self.co is None:
+                raise RuntimeError("Cohere API key not configured")
+            response = self.co.generate(
                 prompt=prompt,
                 max_tokens=500,
                 temperature=0.7,
@@ -45,12 +55,12 @@ class AIDecisionMaker:
                 model='command'
             )
             
-            analysis = response.generations[0].text
+            analysis = response.generations[0].text if hasattr(response, "generations") else ""
             
             return {
                 'error_type': self._classify_error(error_message),
                 'analysis': analysis,
-                'embeddings': code_embeddings.numpy().tolist()
+                'embeddings': code_embeddings.numpy().tolist() if code_embeddings is not None else []
             }
         except Exception as e:
             logging.error(f"Error in AI analysis: {str(e)}")
@@ -71,7 +81,9 @@ class AIDecisionMaker:
             4. Feature engineering opportunities
             """
             
-            response = self.cohere_client.generate(
+            if self.co is None:
+                raise RuntimeError("Cohere API key not configured")
+            response = self.co.generate(
                 prompt=prompt,
                 max_tokens=800,
                 temperature=0.7,
@@ -223,6 +235,8 @@ class AIDecisionMaker:
         finish_reason = "MAX_TOKENS"
         response_events = []
         while finish_reason != "COMPLETE" and current_attempt < max_attempts:
+            if self.co is None:
+                raise RuntimeError("Cohere API key not configured")
             response = self.co.chat_stream(
                 model="command-r-plus-08-2024",
                 messages=[{"role": "user", "content": input_text}]
@@ -324,6 +338,9 @@ class AIDecisionMaker:
         - Output: Prepared, unified dataset(s).
         """
 
+        if self.co is None:
+            logging.warning("Cohere API key not configured; skipping AI summary")
+            return None
         response = self.co.chat_stream(
             model="command-r-plus-08-2024",
             messages=[{"role": "user", "content": input_text}]

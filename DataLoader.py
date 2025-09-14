@@ -1,23 +1,21 @@
-import pandas as pd
 import os
-import requests
+import time 
+import gzip
+import yaml
+import h5py
+import boto3
+import pickle
+import zipfile
+import sqlite3 
 import logging
 import tempfile
-import yaml
-import sqlite3 
-import gzip
-import mysql.connector
+import requests
+import importlib
+import pandas as pd
 import gdown 
-from dotenv import load_dotenv
-from kaggle.api.kaggle_api_extended import KaggleApi
-from github import Github
-import boto3
-import zipfile
 from io import StringIO, BytesIO
-import pickle
-import h5py
-import xml.etree.ElementTree as ET
-import time 
+from dotenv import load_dotenv
+from github import Github
 from sqlalchemy import create_engine  
 from pymongo import MongoClient
 class EnhancedDatasetLoader:
@@ -58,13 +56,21 @@ class EnhancedDatasetLoader:
         self._init_external_apis()
 
     def _init_external_apis(self):
+        # Lazily initialize Kaggle API to avoid auth at import time if not configured
+        self.kaggle_api = None
         try:
-            self.kaggle_api = KaggleApi()
-            self.kaggle_api.authenticate()
-            print("✅ Kaggle API Initialized Successfully")
+            kaggle_mod = importlib.import_module('kaggle.api.kaggle_api_extended')
+            KaggleApi = getattr(kaggle_mod, 'KaggleApi', None)
+            kaggle_config = os.path.join(os.path.expanduser('~'), '.kaggle', 'kaggle.json')
+            if KaggleApi and os.path.exists(kaggle_config):
+                api = KaggleApi()
+                api.authenticate()
+                self.kaggle_api = api
+                print("✅ Kaggle API Initialized Successfully")
+            else:
+                print("ℹ️ Kaggle not configured (no kaggle.json). Kaggle sources will be unavailable unless configured.")
         except Exception as e:
-            print(f"❌ Kaggle API Initialization Failed: {e}")
-            self.kaggle_api = None
+            print(f"ℹ️ Kaggle API not available: {e}")
 
         github_token = os.getenv('GITHUB_TOKEN')
         try:
@@ -124,8 +130,7 @@ class EnhancedDatasetLoader:
                     bucket, key = path.split('/', 1)
                     return self._load_s3(bucket, key, **kwargs)
 
-            if '/' in source: 
-                return self._load_kaggle(source, **kwargs)
+            # Do not guess Kaggle based on '/'; require explicit 'kaggle:' prefix
 
             source = str(source)
 
@@ -254,6 +259,8 @@ class EnhancedDatasetLoader:
 
     def _load_kaggle(self, dataset_name: str, **kwargs) -> pd.DataFrame:
         try:
+            if not self.kaggle_api:
+                raise RuntimeError("Kaggle API is not configured. Please place kaggle.json in ~/.kaggle or set environment variables as per Kaggle API docs.")
             # Validate dataset name format
             if '/' not in dataset_name:
                 raise ValueError(f"Invalid Kaggle dataset format. Use 'username/dataset-name'. Received: {dataset_name}")

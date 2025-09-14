@@ -1,3 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.ipynb_checkpoints/
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+Include/
+Lib/
+Scripts/
+pyvenv.cfg
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Project artifacts
+analysis_results/
+analysis_cache/
+uploaded_files/
+dataset_analyzer.log
+generated_*.jpeg
+
+# Secrets
+.env
+*.env
+.kaggle/
+kaggle.json
 # Ignore virtual environment folders
 Include/
 Lib/

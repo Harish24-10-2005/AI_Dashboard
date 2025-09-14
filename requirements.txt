@@ -120,7 +120,6 @@ parso==0.8.4
 partd==1.4.2
 patsy==1.0.1
 pillow==10.2.0
-pip==23.2.1
 platformdirs==4.3.6
 plotly==5.24.1
 plotnine==0.14.1
@@ -191,9 +190,9 @@ tinyhtml5==2.0.0
 tokenizers==0.20.3
 toml==0.10.2
 toolz==1.0.0
-torch==2.5.1+cu118
-torchaudio==2.5.1+cu118
-torchvision==0.20.1+cu118
+torch==2.5.1
+torchaudio==2.5.1
+torchvision==0.20.1
 tornado==6.4.1
 tqdm==4.67.0
 traitlets==5.14.3
@@ -209,7 +208,7 @@ uvicorn==0.32.1
 watchdog==6.0.0
 wcwidth==0.2.13
 weasyprint==63.0
-xarray==2024.8.0
+xarray==2024.9.0
 xlrd==2.0.1
 yellowbrick==1.5
-zipp==3.17.0
+zipp==3.20.2

@@ -20,8 +20,14 @@ load_dotenv()
 logging.basicConfig(level=logging.INFO,format='%(asctime)s - %(levelname)s: %(message)s')
 logger = logging.getLogger(__name__)
 
+# Initialize Cohere client only if API key is provided
 Cohere_API_KEY = os.getenv('cohere_api_key')
-co = cohere.ClientV2(Cohere_API_KEY)
+co = None
+if Cohere_API_KEY:
+    try:
+        co = cohere.ClientV2(Cohere_API_KEY)
+    except Exception as e:
+        logger.warning(f"Failed to initialize Cohere client: {e}")
 
 
 def summary_of_data(data, report):
@@ -31,6 +37,9 @@ def summary_of_data(data, report):
     full_response = ""
     input_text = input_prompt_summary(data,report)
     try:
+        if co is None:
+            status_container.warning("Cohere API key not configured. Skipping AI summary.")
+            return None
         status_container.info("Starting analysis...")
         
         response = co.chat_stream(
@@ -94,7 +103,8 @@ def main():
     }
     
     datasets = get_datasets_input()
-    use_llm = st.sidebar.checkbox("Use AI Analysis", value=True)
+    # Respect sidebar settings; default to not using LLM to avoid heavy downloads
+    use_llm = st.sidebar.checkbox("Use AI Analysis (semantic)", value=False)
     min_similarity = st.sidebar.slider(
         "Minimum Similarity Threshold", 
         min_value=0.0, 
@@ -119,8 +129,8 @@ def main():
                 results,report = relation.analyze_and_merge_datasets(
                     dataFrame,
                     output_dir='analysis_results',
-                    use_llm=True,
-                    min_similarity=0.75,
+                    use_llm=use_llm,
+                    min_similarity=min_similarity,
                     save_format='csv',
                     cache_dir='analysis_cache'
                 )

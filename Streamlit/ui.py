@@ -24,7 +24,12 @@ load_dotenv()
 
 # API Configuration
 Cohere_API_KEY = os.getenv('cohere_api_key')
-co = cohere.ClientV2(Cohere_API_KEY)
+co = None
+if Cohere_API_KEY:
+    try:
+        co = cohere.ClientV2(Cohere_API_KEY)
+    except Exception as e:
+        logger.warning(f"Failed to initialize Cohere client: {e}")
 
 # Styling Constants
 PRIMARY_COLOR = "#1A73E8"      # Vibrant Blue
@@ -66,6 +71,9 @@ def stream_ai_analysis(data, report):
     input_text = input_prompt_summary(data, report)
     
     try:
+        if co is None:
+            status_container.warning("Cohere API key not configured. Skipping AI summary.")
+            return None
         status_container.info("Starting AI-powered analysis...")
         
         response = co.chat_stream(

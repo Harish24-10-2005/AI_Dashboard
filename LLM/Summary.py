@@ -1,13 +1,19 @@
+import os
+import json
+import logging
 import pandas as pd
 import streamlit as st
-import logging
 import cohere
-import json
 class Summary_overview:
     def __init__(self):
-        import os
-        api_key = "1TyaPaqTNlXozRCJYWb1RSw30nkPwPqbG8ApPLFr"
-        self.co = cohere.ClientV2(api_key)
+        # Read API key from env; do not hard-code secrets
+        api_key = os.getenv("cohere_api_key")
+        self.co = None
+        if api_key:
+            try:
+                self.co = cohere.ClientV2(api_key)
+            except Exception as e:
+                logging.warning(f"Failed to initialize Cohere client: {e}")
     def summary_of_data(self,data: pd.DataFrame,dataset_analysis_report):
         status_container = st.empty()
         text_container = st.empty()
@@ -57,6 +63,9 @@ class Summary_overview:
         """
 
         try:
+            if self.co is None:
+                status_container.warning("Cohere API key not configured. Skipping AI summary.")
+                return None
             # Show initial status
             status_container.info("Starting analysis...")
             

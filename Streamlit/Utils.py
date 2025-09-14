@@ -131,234 +131,6 @@ def get_datasets_input():
     
     return datasets
 
-def generate_dashboard(data, goals, lida_model, data_summary, selected_library="plotly"):
-    """
-    Generate a dynamic dashboard with visualization export options and progress animation
-    """
-    st.write("### Dynamic Dashboard")
-    
-    # Create a progress container
-    progress_container = st.empty()
-    status_container = st.empty()
-    viz_container = st.empty()
-    
-    # Initialize progress bar
-    progress_bar = progress_container.progress(0)
-    status_text = status_container.text("Initializing dashboard...")
-    
-    try:
-        total_goals = len(goals)
-        progress_per_goal = 90 / total_goals 
-        
-        # Generate all visualizations with progress tracking
-        all_visualizations = []
-        
-        for idx, goal in enumerate(goals):
-            # Update status
-            status_text.text(f"Generating visualizations for goal {idx + 1}/{total_goals}: {goal.question}")
-            
-            # Generate visualizations for current goal
-            try:
-                visualizations = lida_model.visualize(
-                    summary=data_summary,
-                    goal=goal,
-                    library=selected_library,
-                )
-                if visualizations:
-                    all_visualizations.extend(visualizations)
-                    # Update progress
-                    current_progress = min(int((idx + 1) * progress_per_goal), 90)
-                    progress_bar.progress(current_progress)
-                    time.sleep(0.1)  # Small delay for smooth animation
-                    
-            except Exception as e:
-                st.warning(f"Warning: Failed to generate visualization for goal {idx + 1}: {str(e)}")
-                continue
-        
-        # Final setup phase
-        status_text.text("Finalizing dashboard layout...")
-        progress_bar.progress(95)
-        
-        if not all_visualizations:
-            progress_container.empty()
-            status_container.error("No visualizations could be generated.")
-            return
-        
-        # Export options in sidebar
-        with st.sidebar:
-            st.write("### Export Options")
-            export_col1, export_col2 = st.columns(2)
-            with export_col1:
-                if st.button("Download All (ZIP)", type="primary"):
-                    create_zip_download(all_visualizations)
-            with export_col2:
-                if st.button("Share Dashboard"):
-                    st.text("Dashboard URL copied!")
-                    
-        # Complete the progress
-        progress_bar.progress(100)
-        time.sleep(0.5)  # Show completed state briefly
-        
-        # Clear progress indicators
-        progress_container.empty()
-        status_container.empty()
-        
-        # Create dashboard layout
-        with viz_container:
-            st.write(f"### Showing {len(all_visualizations)} Visualizations")
-            
-            # Display visualizations in a responsive grid with caching
-            @st.cache_data(ttl=3600)  # Cache for 1 hour
-            def get_cached_visualization(viz_data, idx):
-                return display_visualization(viz_data, idx)
-            
-            # Create tabs for different view modes
-            tab1, tab2 = st.tabs(["Grid View", "Full Width View"])
-            
-            with tab1:
-                # Grid view - 2 columns
-                for i in range(0, len(all_visualizations), 2):
-                    cols = st.columns(2)
-                    
-                    # First visualization in row
-                    with cols[0]:
-                        get_cached_visualization(all_visualizations[i], i)
-                    
-                    # Second visualization in row (if exists)
-                    if i + 1 < len(all_visualizations):
-                        with cols[1]:
-                            get_cached_visualization(all_visualizations[i + 1], i + 1)
-            
-            with tab2:
-                # Full width view - single column
-                for i, viz in enumerate(all_visualizations):
-                    get_cached_visualization(viz, i)
-                    st.divider()
-                    
-    except Exception as e:
-        st.error(f"Error generating dashboard: {str(e)}")
-        if progress_container is not None:
-            progress_container.empty()
-        if status_container is not None:
-            status_container.empty()
-
-def display_visualization(viz, idx):
-    """
-    Display a single visualization with enhanced controls and error handling
-    """
-    try:
-        # Create container for visualization
-        viz_container = st.container()
-        
-        with viz_container:
-            # Title and description
-            st.write(f"#### {viz.title if hasattr(viz, 'title') else f'Visualization {idx + 1}'}")
-            if hasattr(viz, 'description'):
-                st.caption(viz.description)
-            
-            # Display visualization
-            if viz.raster:
-                try:
-                    # Decode and display image
-                    imgdata = base64.b64decode(viz.raster)
-                    img = Image.open(io.BytesIO(imgdata))
-                    
-                    # Add image controls
-                    col1, col2, col3 = st.columns([2, 1, 1])
-                    
-                    with col1:
-                        st.image(img, use_column_width=True)
-                    
-                    # Control buttons
-                    with col2:
-                        if st.button("View Code", key=f"code_{idx}"):
-                            st.code(viz.code, language="python")
-                            
-                        if st.button("Fullscreen", key=f"fullscreen_{idx}"):
-                            st.image(img, use_column_width=True)
-                    
-                    with col3:
-                        # Download options
-                        download_format = st.selectbox(
-                            "Format",
-                            ["PNG", "JPEG", "SVG"],
-                            key=f"format_{idx}"
-                        )
-                        
-                        st.download_button(
-                            label="Download",
-                            data=imgdata,
-                            file_name=f"chart_{idx + 1}.{download_format.lower()}",
-                            mime=f"image/{download_format.lower()}",
-                            key=f"download_{idx}"
-                        )
-                    
-                except Exception as e:
-                    st.error(f"Error displaying visualization {idx + 1}: {str(e)}")
-            else:
-                st.warning("No visualization data available")
-    
-    except Exception as e:
-        st.error(f"Error in visualization component {idx + 1}: {str(e)}")
-
-def create_zip_download(visualizations):
-    """
-    Create a ZIP file containing all visualizations with enhanced error handling
-    """
-    try:
-        # Show progress for ZIP creation
-        with st.status("Creating ZIP file...", expanded=True) as status:
-            zip_io = io.BytesIO()
-            with zipfile.ZipFile(zip_io, mode='w', compression=zipfile.ZIP_DEFLATED) as zip_file:
-                for idx, viz in enumerate(visualizations):
-                    status.update(f"Adding visualization {idx + 1}/{len(visualizations)}")
-                    
-                    if viz.raster:
-                        try:
-                            # Add visualization image
-                            img_data = base64.b64decode(viz.raster)
-                            zip_file.writestr(f"visualizations/images/chart_{idx + 1}.png", img_data)
-                            
-                            # Add code file
-                            zip_file.writestr(f"visualizations/code/code_{idx + 1}.py", viz.code)
-                            
-                            # Add metadata if available
-                            if hasattr(viz, 'metadata'):
-                                zip_file.writestr(
-                                    f"visualizations/metadata/metadata_{idx + 1}.json",
-                                    json.dumps(viz.metadata, indent=2)
-                                )
-                        except Exception as e:
-                            st.warning(f"Skipped visualization {idx + 1} due to error: {str(e)}")
-                            continue
-                
-                # Add README
-                readme_content = """
-                # Dashboard Visualizations Export
-                
-                This ZIP file contains:
-                - /visualizations/images/: PNG images of all visualizations
-                - /visualizations/code/: Python source code for each visualization
-                - /visualizations/metadata/: Additional metadata and configuration
-                
-                Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-                """.strip()
-                
-                zip_file.writestr("README.md", readme_content)
-            
-            # Offer ZIP file for download
-            st.download_button(
-                label="📥 Download ZIP",
-                data=zip_io.getvalue(),
-                file_name="dashboard_export.zip",
-                mime="application/zip",
-                key="download_all"
-            )
-            
-            status.update(label="ZIP file created successfully!", state="complete")
-            
-    except Exception as e:
-        st.error(f"Error creating ZIP file: {str(e)}")
 
 def apply_custom_styling():
     """Apply custom CSS styling to Streamlit app"""
@@ -386,19 +158,89 @@ def apply_custom_styling():
     </style>
     """, unsafe_allow_html=True)
 
+def create_dynamic_dashboard(images):
+    st.title("📊 Dynamic Dashboard")
+    st.markdown(
+        "Easily customize your dashboard layout and manage uploaded images with an intuitive design."
+    )
+
+    # Sidebar: Image Management
+    st.sidebar.header("Dashboard Settings")
+    layout_options = ["Auto", "Grid", "Custom Columns", "Single Column"]
+    selected_layout = st.sidebar.selectbox("Select Layout", layout_options)
+
+    # Optional column adjustment
+    custom_columns = 3
+    if selected_layout == "Custom Columns":
+        custom_columns = st.sidebar.slider("Number of Columns", 1, 6, 3)
+
+    # Image Preview in Sidebar
+    st.sidebar.header("Charts Preview")
+    if images:
+        for i, uploaded_file in enumerate(images):
+            try:
+                image = Image.open(io.BytesIO(uploaded_file))
+                st.sidebar.image(image, use_container_width=True)
+            except Exception as e:
+                st.sidebar.warning(f"Error loading image {i+1}: {e}")
+    if images:
+        # Dynamic layout based on user selection
+        if selected_layout == "Auto":
+            cols = st.columns(min(4, len(images)))
+        elif selected_layout == "Grid":
+            cols = st.columns(3)
+        elif selected_layout == "Custom Columns":
+            cols = st.columns(custom_columns)
+        else:
+            cols = st.columns(1)
+
+        for i, uploaded_file in enumerate(images):
+            col = cols[i % len(cols)]
+            with col:
+                try:
+                    image = Image.open(io.BytesIO(uploaded_file))
+                    st.image(image, use_container_width=True)
+                except Exception as e:
+                    st.warning(f"Could not display image {i+1}: {e}")
+    else:
+        st.info("No images uploaded. Use the sidebar to add images.")
+
+    st.sidebar.markdown("---")
+    st.sidebar.button("🔄 Refresh Layout")
+
+
+def visu(data,summary, lida_model):
+    all_charts = []  # Initialize the list for all chart
+    goals = lida_model.goals_dashboard(summary)
+    for goal in goals:
+        visualizations = lida_model.visualize(summary=summary, goal=goal, library='seaborn')
+        if visualizations:
+            for visualization in visualizations:
+                if visualization.raster:
+                        imgdata = base64.b64decode(visualization.raster)
+                all_charts.append(imgdata)
+
+    return all_charts 
+
+
+
+
 def AI_Visualization(data: pd.DataFrame,dataset_analysis_report):
     lida_model = lida_Model()
+    if not getattr(lida_model, 'text_gen', None):
+        st.warning("Cohere API key not configured. AI visualization features are disabled. Set 'cohere_api_key' in your environment to enable.")
+        return
 
 
     # Add title
     st.subheader("AI-Driven Data Analysis Summary", divider=True)
 
     summary = lida_model.summarize(data)
-    goals = lida_model.goals(summary)
+    goals = lida_model.goals(summary) if summary else []
 
     dataset_summary = summary
 
-    for field in dataset_summary["fields"]:
+    for field in dataset_summary.get("fields", []):
         field_name = field["column"]
         field_properties = field["properties"]
         
@@ -429,7 +271,7 @@ def AI_Visualization(data: pd.DataFrame,dataset_analysis_report):
                         title=f"{field_name} - Distribution of Sample Values")
             st.plotly_chart(fig)
 
-    if summary:
+    if summary and goals:
         st.sidebar.write("### Goal Selection")
 
         num_goals = st.sidebar.slider(
@@ -502,7 +344,12 @@ def AI_Visualization(data: pd.DataFrame,dataset_analysis_report):
             else:
                 st.error("No visualizations found. Please ensure that your data and goal have valid results.")
 
-    st.subheader("Interactive Data Visualizations", divider=True)
-    generate_dashboard(data, goals, lida_model, summary, selected_library="plotly")
+
+    charts = visu(data,summary,lida_model) if summary else []
+    if charts:
+        create_dynamic_dashboard(charts)
+    else:
+        st.info("No charts generated yet.")
+    # generate_dashboard(data, goals, lida_model, summary, selected_library="plotly")
     
 
